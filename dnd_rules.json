@@ -1,0 +1,949 @@
+{
+  "name": "D&D 5e Canonical Dataset",
+  "combat_config": {
+    "max_turns": 30,
+    "mp_regen": 10,
+    "is_stochastic": true
+  },
+  "player": {
+    "name": "Воин (Герой)",
+    "hp": 44,
+    "max_hp": 44,
+    "mp": 50,
+    "max_mp": 50,
+    "attack": 0,
+    "defense": 0,
+    "ac": 18,
+    "save_bonus": 4,
+    "attack_bonus": 7,
+    "skills": [
+      {
+        "name": "Удар длинным мечом",
+        "cost": 0,
+        "damage": 14,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Второе дыхание",
+        "cost": 0,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Восстановление",
+          "effect_type": "Щит",
+          "value": 12,
+          "duration": 1
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Подсечка",
+        "cost": 10,
+        "damage": 10,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Сбит с ног",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Всплеск действий",
+        "cost": 15,
+        "damage": 0,
+        "cooldown": 5,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Боевой раж",
+          "effect_type": "Усиление атаки",
+          "value": 5,
+          "duration": 2
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Дубина огра",
+        "cost": 0,
+        "damage": 18,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Ошеломление",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Кинжал с ядом",
+        "cost": 0,
+        "damage": 8,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 3
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Огненный шар",
+        "cost": 20,
+        "damage": 28,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false,
+        "delivery_type": "saving_throw",
+        "dc": 14,
+        "half_on_save": true
+      },
+      {
+        "name": "Магический доспех",
+        "cost": 10,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Магический барьер",
+          "effect_type": "Щит",
+          "value": 15,
+          "duration": 3
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      }
+    ],
+    "cooldowns": [],
+    "active_effects": [],
+    "shield": 0
+  },
+  "enemy": {
+    "name": "Огр-крушитель",
+    "hp": 59,
+    "max_hp": 59,
+    "mp": 20,
+    "max_mp": 20,
+    "attack": 0,
+    "defense": 0,
+    "ac": 11,
+    "save_bonus": -1,
+    "attack_bonus": 6,
+    "skills": [
+      {
+        "name": "Удар длинным мечом",
+        "cost": 0,
+        "damage": 14,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Второе дыхание",
+        "cost": 0,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Восстановление",
+          "effect_type": "Щит",
+          "value": 12,
+          "duration": 1
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Подсечка",
+        "cost": 10,
+        "damage": 10,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Сбит с ног",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Всплеск действий",
+        "cost": 15,
+        "damage": 0,
+        "cooldown": 5,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Боевой раж",
+          "effect_type": "Усиление атаки",
+          "value": 5,
+          "duration": 2
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Дубина огра",
+        "cost": 0,
+        "damage": 18,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Ошеломление",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Кинжал с ядом",
+        "cost": 0,
+        "damage": 8,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 3
+        },
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
+      },
+      {
+        "name": "Огненный шар",
+        "cost": 20,
+        "damage": 28,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false,
+        "delivery_type": "saving_throw",
+        "dc": 14,
+        "half_on_save": true
+      },
+      {
+        "name": "Магический доспех",
+        "cost": 10,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Магический барьер",
+          "effect_type": "Щит",
+          "value": 15,
+          "duration": 3
+        },
+        "target_self": true,
+        "delivery_type": "auto",
+        "dc": 13,
+        "half_on_save": true
+      }
+    ],
+    "cooldowns": [],
+    "active_effects": [],
+    "shield": 0
+  },
+  "skills": [
+    {
+      "name": "Удар длинным мечом",
+      "cost": 0,
+      "damage": 14,
+      "cooldown": 0,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Второе дыхание",
+      "cost": 0,
+      "damage": 0,
+      "cooldown": 4,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Восстановление",
+        "effect_type": "Щит",
+        "value": 12,
+        "duration": 1
+      },
+      "target_self": true,
+      "delivery_type": "auto",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Подсечка",
+      "cost": 10,
+      "damage": 10,
+      "cooldown": 2,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Сбит с ног",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Всплеск действий",
+      "cost": 15,
+      "damage": 0,
+      "cooldown": 5,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Боевой раж",
+        "effect_type": "Усиление атаки",
+        "value": 5,
+        "duration": 2
+      },
+      "target_self": true,
+      "delivery_type": "auto",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Дубина огра",
+      "cost": 0,
+      "damage": 18,
+      "cooldown": 0,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Ошеломление",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Кинжал с ядом",
+      "cost": 0,
+      "damage": 8,
+      "cooldown": 0,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Яд",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 5,
+        "duration": 3
+      },
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Огненный шар",
+      "cost": 20,
+      "damage": 28,
+      "cooldown": 2,
+      "skill_type": "Маг.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false,
+      "delivery_type": "saving_throw",
+      "dc": 14,
+      "half_on_save": true
+    },
+    {
+      "name": "Магический доспех",
+      "cost": 10,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Магический барьер",
+        "effect_type": "Щит",
+        "value": 15,
+        "duration": 3
+      },
+      "target_self": true,
+      "delivery_type": "auto",
+      "dc": 13,
+      "half_on_save": true
+    }
+  ],
+  "enemies_pool": [
+    {
+      "name": "Огр-крушитель",
+      "hp": 59,
+      "max_hp": 59,
+      "mp": 20,
+      "max_mp": 20,
+      "attack": 0,
+      "defense": 0,
+      "ac": 11,
+      "save_bonus": -1,
+      "attack_bonus": 6,
+      "skills": [
+        {
+          "name": "Удар длинным мечом",
+          "cost": 0,
+          "damage": 14,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Второе дыхание",
+          "cost": 0,
+          "damage": 0,
+          "cooldown": 4,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Восстановление",
+            "effect_type": "Щит",
+            "value": 12,
+            "duration": 1
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Подсечка",
+          "cost": 10,
+          "damage": 10,
+          "cooldown": 2,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Сбит с ног",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Всплеск действий",
+          "cost": 15,
+          "damage": 0,
+          "cooldown": 5,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Боевой раж",
+            "effect_type": "Усиление атаки",
+            "value": 5,
+            "duration": 2
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Дубина огра",
+          "cost": 0,
+          "damage": 18,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Ошеломление",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Кинжал с ядом",
+          "cost": 0,
+          "damage": 8,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Яд",
+            "effect_type": "ДоТ (периодический урон)",
+            "value": 5,
+            "duration": 3
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Огненный шар",
+          "cost": 20,
+          "damage": 28,
+          "cooldown": 2,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "saving_throw",
+          "dc": 14,
+          "half_on_save": true
+        },
+        {
+          "name": "Магический доспех",
+          "cost": 10,
+          "damage": 0,
+          "cooldown": 3,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Магический барьер",
+            "effect_type": "Щит",
+            "value": 15,
+            "duration": 3
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        }
+      ],
+      "cooldowns": [],
+      "active_effects": [],
+      "shield": 0
+    },
+    {
+      "name": "Гоблин-ассасин",
+      "hp": 28,
+      "max_hp": 28,
+      "mp": 20,
+      "max_mp": 20,
+      "attack": 0,
+      "defense": 0,
+      "ac": 15,
+      "save_bonus": 6,
+      "attack_bonus": 5,
+      "skills": [
+        {
+          "name": "Удар длинным мечом",
+          "cost": 0,
+          "damage": 14,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Второе дыхание",
+          "cost": 0,
+          "damage": 0,
+          "cooldown": 4,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Восстановление",
+            "effect_type": "Щит",
+            "value": 12,
+            "duration": 1
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Подсечка",
+          "cost": 10,
+          "damage": 10,
+          "cooldown": 2,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Сбит с ног",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Всплеск действий",
+          "cost": 15,
+          "damage": 0,
+          "cooldown": 5,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Боевой раж",
+            "effect_type": "Усиление атаки",
+            "value": 5,
+            "duration": 2
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Дубина огра",
+          "cost": 0,
+          "damage": 18,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Ошеломление",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Кинжал с ядом",
+          "cost": 0,
+          "damage": 8,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Яд",
+            "effect_type": "ДоТ (периодический урон)",
+            "value": 5,
+            "duration": 3
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Огненный шар",
+          "cost": 20,
+          "damage": 28,
+          "cooldown": 2,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "saving_throw",
+          "dc": 14,
+          "half_on_save": true
+        },
+        {
+          "name": "Магический доспех",
+          "cost": 10,
+          "damage": 0,
+          "cooldown": 3,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Магический барьер",
+            "effect_type": "Щит",
+            "value": 15,
+            "duration": 3
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        }
+      ],
+      "cooldowns": [],
+      "active_effects": [],
+      "shield": 0
+    },
+    {
+      "name": "Злой Волшебник",
+      "hp": 32,
+      "max_hp": 32,
+      "mp": 100,
+      "max_mp": 100,
+      "attack": 0,
+      "defense": 0,
+      "ac": 12,
+      "save_bonus": 3,
+      "attack_bonus": 4,
+      "skills": [
+        {
+          "name": "Удар длинным мечом",
+          "cost": 0,
+          "damage": 14,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Второе дыхание",
+          "cost": 0,
+          "damage": 0,
+          "cooldown": 4,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Восстановление",
+            "effect_type": "Щит",
+            "value": 12,
+            "duration": 1
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Подсечка",
+          "cost": 10,
+          "damage": 10,
+          "cooldown": 2,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Сбит с ног",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Всплеск действий",
+          "cost": 15,
+          "damage": 0,
+          "cooldown": 5,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Боевой раж",
+            "effect_type": "Усиление атаки",
+            "value": 5,
+            "duration": 2
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Дубина огра",
+          "cost": 0,
+          "damage": 18,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Ошеломление",
+            "effect_type": "Оглушение",
+            "value": 0,
+            "duration": 1
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Кинжал с ядом",
+          "cost": 0,
+          "damage": 8,
+          "cooldown": 0,
+          "skill_type": "Физ.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Яд",
+            "effect_type": "ДоТ (периодический урон)",
+            "value": 5,
+            "duration": 3
+          },
+          "target_self": false,
+          "delivery_type": "attack_roll",
+          "dc": 13,
+          "half_on_save": true
+        },
+        {
+          "name": "Огненный шар",
+          "cost": 20,
+          "damage": 28,
+          "cooldown": 2,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": null,
+          "target_self": false,
+          "delivery_type": "saving_throw",
+          "dc": 14,
+          "half_on_save": true
+        },
+        {
+          "name": "Магический доспех",
+          "cost": 10,
+          "damage": 0,
+          "cooldown": 3,
+          "skill_type": "Маг.",
+          "crit_chance": 0.1,
+          "damage_variance": 0.15,
+          "applied_effect": {
+            "name": "Магический барьер",
+            "effect_type": "Щит",
+            "value": 15,
+            "duration": 3
+          },
+          "target_self": true,
+          "delivery_type": "auto",
+          "dc": 13,
+          "half_on_save": true
+        }
+      ],
+      "cooldowns": [],
+      "active_effects": [],
+      "shield": 0
+    }
+  ]
+}

@@ -59,6 +59,7 @@ def train_agent(
     config: CombatConfig | None = None,
     total_timesteps: int = 20_000,
     model_path: str = "models/ares_agent",
+    enemies_pool: list[Actor] | None = None,
     progress_callback: Callable[[int], None] | None = None,
 ) -> MaskablePPO:
     """
@@ -84,6 +85,7 @@ def train_agent(
         player=player or default_player(),
         enemy=enemy or default_enemy(),
         config=config or default_config(),
+        enemies_pool=enemies_pool,
     )
     env = ActionMasker(env, _mask_fn)
 
@@ -124,6 +126,7 @@ def evaluate_agent(
     enemy: Actor | None = None,
     config: CombatConfig | None = None,
     n_episodes: int = 200,
+    enemies_pool: list[Actor] | None = None,
 ) -> dict[str, Any]:
     """
     Оценивает обученного агента против Random, Greedy и Mirror (Self-Play) агентов.
@@ -168,6 +171,7 @@ def evaluate_agent(
                 config=config or default_config(),
                 enemy_type=opponent_name,
                 enemy_model=enemy_model,
+                enemies_pool=enemies_pool,
             )
             wrapped_env = ActionMasker(env, _mask_fn)
 

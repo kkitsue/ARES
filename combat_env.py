@@ -46,6 +46,7 @@ class CombatEnv(gym.Env):
         render_mode: str | None = None,
         enemy_type: str = "random",
         enemy_model: Any | None = None,
+        enemies_pool: list[Actor] | None = None,
     ) -> None:
         """
         Инициализация среды.
@@ -76,12 +77,13 @@ class CombatEnv(gym.Env):
             config=self._config,
         )
 
+        self.enemies_pool = enemies_pool or []
         # Количество навыков (одинаковое у игрока, по шаблону)
         self.num_skills = len(self._player_template.skills)
 
         # Размер вектора наблюдений:
         #   4 (HP/MP) + num_skills (кулдауны) + 6 (статусы)
-        self.obs_size = 4 + self.num_skills + 6
+        self.obs_size = 8 + self.num_skills + 6
 
         # Пространство наблюдений — нормализованные значения [0, 1]
         self.observation_space = spaces.Box(
@@ -106,8 +108,12 @@ class CombatEnv(gym.Env):
         obs = [
             state["player_hp"],
             state["player_mp"],
+            state["player_ac"],
+            state["player_save_bonus"],
             state["enemy_hp"],
             state["enemy_mp"],
+            state["enemy_ac"],
+            state["enemy_save_bonus"],
         ]
         obs.extend(state["player_cooldowns"])
         obs.extend([
@@ -128,8 +134,12 @@ class CombatEnv(gym.Env):
         obs = [
             state["enemy_hp"],
             state["enemy_mp"],
+            state["enemy_ac"],
+            state["enemy_save_bonus"],
             state["player_hp"],
             state["player_mp"],
+            state["player_ac"],
+            state["player_save_bonus"],
         ]
         obs.extend(state["enemy_cooldowns"])
         obs.extend([
@@ -215,6 +225,11 @@ class CombatEnv(gym.Env):
         Если включен стохастизм, бросается инициатива.
         """
         super().reset(seed=seed, options=options)
+        
+        if self.enemies_pool:
+            import random
+            self.sim._enemy_template = random.choice(self.enemies_pool).model_copy(deep=True)
+            
         self.sim.rng.seed(self.np_random.integers(0, 2**32 - 1))
         self.sim.reset()
         

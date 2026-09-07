@@ -202,6 +202,7 @@ def run_stress_test(
             enemy=enemy,
             config=config,
             total_timesteps=total_steps,
+            enemies_pool=enemies_pool,
         )
         elapsed = time.time() - start_time
 
@@ -237,6 +238,7 @@ def run_stress_test(
             enemy=enemy,
             config=config,
             n_episodes=200,
+            enemies_pool=enemies_pool,
         )
 
         progress.update(task, completed=100, total=100)
