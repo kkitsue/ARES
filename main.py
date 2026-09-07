@@ -6,6 +6,7 @@ main.py — Интерактивный терминальный интерфей
   2. Просмотр аналитического отчёта СППР.
   3. Сценарный анализ «Что, если?»: ручная правка параметров навыка.
   4. Экспорт отчёта в файл (Markdown / JSON).
+  5. Загрузка конфигурации правил из внешнего JSON-файла.
 """
 
 from __future__ import annotations
@@ -41,13 +42,20 @@ from models import (
     default_player,
     default_skills,
 )
+from rules_manager import (
+    DEFAULT_RULES_PATH,
+    RulesPreset,
+    ensure_default_rules,
+    load_rules,
+    save_rules,
+)
 
 # Консоль Rich
 console = Console()
 
 # Глобальные переменные состояния
 _current_report: BalanceReport | None = None
-_current_skills: list[Skill] | None = None
+_current_preset: RulesPreset | None = None  # Активный пресет правил сессии
 
 
 # =========================================================================
@@ -96,6 +104,7 @@ def show_menu() -> str:
         "[bold green]2[/] │ Посмотреть отчёт СППР\n"
         "[bold green]3[/] │ Сценарный анализ «Что, если?»\n"
         "[bold green]4[/] │ Экспорт отчёта в файл\n"
+        "[bold green]5[/] │ Загрузить конфигурацию правил из файла (JSON)\n"
         "[bold red]0[/]   │ Выход"
     )
     console.print(
@@ -109,7 +118,7 @@ def show_menu() -> str:
     )
     choice = Prompt.ask(
         "[bold yellow]Выберите действие[/bold yellow]",
-        choices=["0", "1", "2", "3", "4"],
+        choices=["0", "1", "2", "3", "4", "5"],
         default="0",
     )
     return choice
@@ -119,34 +128,47 @@ def show_menu() -> str:
 # 1. Стресс-тестирование баланса
 # =========================================================================
 
-def run_stress_test(skills: list[Skill] | None = None) -> BalanceReport:
+def run_stress_test(
+    preset: RulesPreset | None = None,
+    skills: list[Skill] | None = None,
+) -> BalanceReport:
     """
     Запускает полный цикл стресс-тестирования:
       1. Обучение MaskablePPO с прогресс-баром.
-      2. Оценка против Random и Greedy агентов.
+      2. Оценка против Random, Greedy и Mirror агентов.
       3. Генерация отчёта СППР.
 
     Args:
-        skills: Список навыков (если None — по умолчанию).
+        preset: Активный пресет правил (если None — глобальный _current_preset).
+        skills: Переопределённый список навыков (для режима «Что, если?»).
 
     Returns:
         Объект BalanceReport с результатами.
     """
+    global _current_preset
     # Ленивый импорт, чтобы не замедлять загрузку меню
     from ares_core import evaluate_agent, generate_balance_report, train_agent
 
-    current_skills = skills or default_skills()
+    # Берём активный пресет
+    active_preset = preset or _current_preset or ensure_default_rules()
 
-    # Формируем актёров с текущими навыками
-    player = default_player()
-    player.skills = current_skills
-    player.init_cooldowns()
+    if skills is not None:
+        # В режиме «Что, если?» навыки переопределяются, остальное из пресета
+        player = active_preset.player.model_copy(deep=True)
+        player.skills = [s.model_copy(deep=True) for s in skills]
+        player.init_cooldowns()
 
-    enemy = default_enemy()
-    enemy.skills = current_skills
-    enemy.init_cooldowns()
+        enemy = active_preset.enemy.model_copy(deep=True)
+        enemy.skills = [s.model_copy(deep=True) for s in skills]
+        enemy.init_cooldowns()
 
-    config = default_config()
+        current_skills = skills
+    else:
+        player = active_preset.build_player()
+        enemy = active_preset.build_enemy()
+        current_skills = active_preset.skills
+
+    config = active_preset.combat_config
     total_steps = 20_000
 
     console.print()
@@ -380,30 +402,70 @@ def show_report(report: BalanceReport) -> None:
 # 3. Сценарный анализ «Что, если?»
 # =========================================================================
 
+def _parse_value(raw: str, current: int) -> int:
+    """
+    Парсер ввода значений параметров навыков.
+
+    Логика:
+      - Строка начинается с '+' или '-': значение трактуется как дельта.
+        new = max(0, current + delta)
+      - Обычное число без знака: абсолютная перезапись.
+        new = max(0, val)
+      - Пустая строка: сохраняется текущее значение.
+
+    Args:
+        raw: Сырая строка ввода пользователя.
+        current: Текущее значение параметра.
+
+    Returns:
+        Новое целочисленное значение >= 0.
+    """
+    raw = raw.strip()
+    if not raw:
+        return current
+    if raw.startswith(("+", "-")):
+        try:
+            delta = int(raw)
+            return max(0, current + delta)
+        except ValueError:
+            return current
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return current
+
+
 def what_if_analysis() -> BalanceReport | None:
     """
-    Интерактивный режим сценарного анализа.
+    Интерактивный режим сценарного анализа «Что, если?».
 
-    Позволяет пользователю выбрать навык и изменить его параметры
-    (урон, стоимость, кулдаун), затем повторно запустить
-    стресс-тестирование с изменёнными параметрами.
+    Использует навыки из активного пресета (_current_preset).
+    Поддерживает ввод дельт (+3, -5) и абсолютных значений (22).
+    После редактирования предлагает сохранить изменения в JSON-файл.
 
     Returns:
         Новый отчёт BalanceReport или None при отмене.
     """
-    skills = list(default_skills())
+    global _current_preset
+
+    # Берём навыки из активного пресета (не из дефолтов!)
+    active_preset = _current_preset or ensure_default_rules()
+    skills = [s.model_copy(deep=True) for s in active_preset.skills]
 
     console.print(
         Panel(
             "[bold]Режим сценарного анализа «Что, если?»[/bold]\n"
-            "Выберите навык и измените его параметры.",
+            "Активный пресет: [cyan]{name}[/cyan]\n"
+            "Введите дельту (+3, -5) или абсолютное значение (22). Пусто — без изменений.".format(
+                name=active_preset.name
+            ),
             title="Сценарный анализ",
             border_style="cyan",
         )
     )
     console.print()
 
-    # Показываем текущие навыки
+    # Таблица текущих навыков
     skill_table = Table(
         title="Текущие параметры навыков",
         box=box.SIMPLE_HEAVY,
@@ -462,38 +524,34 @@ def what_if_analysis() -> BalanceReport | None:
 
     console.print(
         f"\n[bold]Редактирование навыка: [cyan]{skill.name}[/cyan][/bold]\n"
-        f"Оставьте поле пустым, чтобы сохранить текущее значение.\n"
+        f"Введите дельту ([bold]+3[/bold], [bold]-5[/bold]) или "
+        f"абсолютное значение ([bold]22[/bold]). Пусто — без изменений.\n"
     )
 
-    # Ввод новых параметров
-    new_damage_str = Prompt.ask(
+    # Ввод новых параметров с поддержкой дельт
+    raw_damage = Prompt.ask(
         f"  Урон [dim](текущий: {skill.damage})[/dim]",
-        default=str(skill.damage),
+        default="",
     )
-    new_cost_str = Prompt.ask(
+    raw_cost = Prompt.ask(
         f"  Стоимость маны [dim](текущая: {skill.cost})[/dim]",
-        default=str(skill.cost),
+        default="",
     )
-    new_cd_str = Prompt.ask(
+    raw_cd = Prompt.ask(
         f"  Кулдаун [dim](текущий: {skill.cooldown})[/dim]",
-        default=str(skill.cooldown),
+        default="",
     )
 
-    # Применяем изменения
-    try:
-        new_damage = int(new_damage_str)
-        new_cost = int(new_cost_str)
-        new_cd = int(new_cd_str)
-    except ValueError:
-        console.print("[red]Ошибка: введены некорректные числовые значения.[/red]")
-        return None
+    new_damage = _parse_value(raw_damage, skill.damage)
+    new_cost = _parse_value(raw_cost, skill.cost)
+    new_cd = _parse_value(raw_cd, skill.cooldown)
 
     # Создаём модифицированный навык
     skills[skill_idx] = Skill(
         name=skill.name,
-        damage=max(0, new_damage),
-        cost=max(0, new_cost),
-        cooldown=max(0, new_cd),
+        damage=new_damage,
+        cost=new_cost,
+        cooldown=new_cd,
         skill_type=skill.skill_type,
         crit_chance=skill.crit_chance,
         damage_variance=skill.damage_variance,
@@ -504,16 +562,32 @@ def what_if_analysis() -> BalanceReport | None:
     console.print(
         Panel(
             f"[bold green]Навык «{skill.name}» изменён:[/bold green]\n"
-            f"  Урон: {skill.damage} → {skills[skill_idx].damage}\n"
-            f"  Стоимость: {skill.cost} → {skills[skill_idx].cost}\n"
-            f"  Кулдаун: {skill.cooldown} → {skills[skill_idx].cooldown}",
+            f"  Урон:       {skill.damage} → {skills[skill_idx].damage}\n"
+            f"  Стоимость:  {skill.cost} → {skills[skill_idx].cost}\n"
+            f"  Кулдаун:    {skill.cooldown} → {skills[skill_idx].cooldown}",
             border_style="green",
         )
     )
 
+    # Предложение сохранить изменения в активный JSON-файл
+    save_choice = Prompt.ask(
+        "\n[bold yellow]Сохранить изменения в активный JSON-конфиг?[/bold yellow] [dim][y/N][/dim]",
+        default="n",
+    )
+    if save_choice.lower() == "y":
+        # Обновляем пресет и сохраняем
+        updated_preset = active_preset.model_copy(deep=True)
+        updated_preset.skills = skills
+        save_rules(updated_preset, DEFAULT_RULES_PATH)
+        _current_preset = updated_preset
+        console.print(
+            f"  [green][OK][/green] Изменения сохранены в [cyan]{DEFAULT_RULES_PATH.name}[/cyan]"
+        )
+    else:
+        console.print("  [dim][INFO] Изменения применяются только для текущего прогона.[/dim]")
+
     console.print("\n[bold]Запуск повторного стресс-тестирования...[/bold]\n")
 
-    # Запускаем тест с новыми параметрами
     report = run_stress_test(skills=skills)
     return report
 
@@ -620,6 +694,94 @@ def _export_json(report: BalanceReport) -> None:
 
 
 # =========================================================================
+# 5. Загрузка конфигурации правил из JSON-файла
+# =========================================================================
+
+def load_rules_interactive() -> bool:
+    """
+    Интерактивная загрузка пресета правил из пользовательского JSON-файла.
+
+    Запрашивает путь к файлу, валидирует его через RulesPreset,
+    обновляет глобальный _current_preset и сообщает о результате.
+    Перезагрузка среды CombatEnv произойдёт автоматически при следующем
+    вызове run_stress_test(), который считает обновлённый пресет.
+
+    Returns:
+        True — если пресет успешно загружен, False — при ошибке или отмене.
+    """
+    global _current_preset
+
+    console.print(
+        Panel(
+            "[bold]Загрузка конфигурации правил из JSON-файла[/bold]\n"
+            f"Текущий активный пресет: [cyan]{_current_preset.name if _current_preset else 'default'}[/cyan]\n"
+            f"Путь по умолчанию: [dim]{DEFAULT_RULES_PATH}[/dim]",
+            title="[5] Загрузка правил",
+            border_style="cyan",
+        )
+    )
+    console.print()
+
+    path_str = Prompt.ask(
+        "[bold yellow]Путь к JSON-файлу правил[/bold yellow] "
+        f"[dim](Enter — загрузить {DEFAULT_RULES_PATH.name})[/dim]",
+        default=str(DEFAULT_RULES_PATH),
+    )
+
+    if not path_str.strip():
+        path_str = str(DEFAULT_RULES_PATH)
+
+    path = Path(path_str.strip())
+
+    if not path.exists():
+        console.print(
+            Panel(
+                f"[red]Файл не найден: {path}[/red]",
+                title="[ERROR] Ошибка загрузки",
+                border_style="red",
+            )
+        )
+        return False
+
+    try:
+        preset = load_rules(path)
+        _current_preset = preset
+
+        # Формируем сводку загруженного пресета
+        skill_list = "\n".join(
+            f"  [dim]•[/dim] {s.name} | урон: {s.damage} | стоимость: {s.cost} | КД: {s.cooldown}"
+            for s in preset.skills
+        )
+
+        console.print(
+            Panel(
+                f"[bold green][OK] Пресет «{preset.name}» успешно загружен.[/bold green]\n\n"
+                f"[bold]Боевая конфигурация:[/bold]\n"
+                f"  Лимит ходов:  {preset.combat_config.max_turns}\n"
+                f"  Реген маны:   {preset.combat_config.mp_regen} MP/ход\n"
+                f"  Стохастика:   {'вкл.' if preset.combat_config.is_stochastic else 'выкл.'}\n\n"
+                f"[bold]Навыки ({len(preset.skills)} шт.):[/bold]\n"
+                f"{skill_list}\n\n"
+                f"[dim][INFO] CombatEnv будет перезагружена автоматически при следующем\n"
+                f"запуске стресс-тестирования (пункт 1).[/dim]",
+                title=f"[OK] Пресет загружен: {path.name}",
+                border_style="green",
+            )
+        )
+        return True
+
+    except Exception as exc:
+        console.print(
+            Panel(
+                f"[red]Ошибка при разборе файла:[/red]\n{exc}",
+                title="[ERROR] Ошибка валидации JSON",
+                border_style="red",
+            )
+        )
+        return False
+
+
+# =========================================================================
 # Главный цикл приложения
 # =========================================================================
 
@@ -629,18 +791,35 @@ def main() -> None:
 
     Отображает баннер и запускает интерактивный цикл главного меню.
     """
-    global _current_report, _current_skills
+    global _current_report, _current_preset
 
     show_banner()
 
+    # Загружаем активный пресет правил при старте
     console.print(
         Panel(
-            "[bold green]Система готова к работе.[/bold green]\n"
-            "Используйте меню для навигации.",
-            border_style="green",
+            "[dim]Загрузка конфигурации правил...[/dim]",
+            border_style="dim",
             box=box.ROUNDED,
         )
     )
+    try:
+        _current_preset = ensure_default_rules()
+        console.print(
+            Panel(
+                f"[bold green]Система готова к работе.[/bold green]\n"
+                f"Активный пресет: [cyan]{_current_preset.name}[/cyan] | "
+                f"Навыков: {len(_current_preset.skills)} | "
+                f"Файл: [dim]{DEFAULT_RULES_PATH.name}[/dim]",
+                border_style="green",
+                box=box.ROUNDED,
+            )
+        )
+    except Exception as exc:
+        console.print(
+            f"[yellow][WARN] Не удалось загрузить {DEFAULT_RULES_PATH.name}: {exc}. "
+            f"Используются дефолтные параметры.[/yellow]"
+        )
 
     while True:
         console.print()
@@ -653,9 +832,9 @@ def main() -> None:
             break
 
         elif choice == "1":
-            # Стресс-тестирование
+            # Стресс-тестирование с активным пресетом
             try:
-                _current_report = run_stress_test(skills=_current_skills)
+                _current_report = run_stress_test()
                 show_report(_current_report)
             except Exception as e:
                 console.print(f"[red]Ошибка при тестировании: {e}[/red]")
@@ -697,6 +876,13 @@ def main() -> None:
                 )
             else:
                 export_report(_current_report)
+
+        elif choice == "5":
+            # Загрузка правил из JSON
+            try:
+                load_rules_interactive()
+            except Exception as e:
+                console.print(f"[red]Ошибка при загрузке правил: {e}[/red]")
 
 
 if __name__ == "__main__":

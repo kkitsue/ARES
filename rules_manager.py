@@ -1,0 +1,152 @@
+"""
+rules_manager.py — Модуль управления JSON-пресетами правил ARES.
+
+Обеспечивает:
+  - Модель RulesPreset (Pydantic v2): контейнер для CombatConfig,
+    Actor (player/enemy) и списка Skill.
+  - Функции load_rules / save_rules для сериализации пресетов.
+  - Генерацию и сохранение файла default_rules.json при первом запуске.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from pydantic import BaseModel, Field
+
+from models import (
+    Actor,
+    CombatConfig,
+    Skill,
+    default_config,
+    default_enemy,
+    default_player,
+    default_skills,
+)
+
+
+# Путь к файлу правил по умолчанию рядом с main.py
+DEFAULT_RULES_PATH = Path(__file__).parent / "default_rules.json"
+
+
+# ---------------------------------------------------------------------------
+# Контейнер пресета правил
+# ---------------------------------------------------------------------------
+
+class RulesPreset(BaseModel):
+    """
+    Полный пресет правил боевого столкновения.
+
+    Объединяет конфигурацию боя, параметры игрока и врага,
+    а также список навыков, общих для обоих бойцов.
+
+    Attributes:
+        name: Название пресета (для отображения в UI).
+        combat_config: Конфигурация боя.
+        player: Базовые характеристики игрока.
+        enemy: Базовые характеристики врага.
+        skills: Список навыков, доступных обоим бойцам.
+    """
+
+    name: str = Field("default", description="Название пресета")
+    combat_config: CombatConfig = Field(default_factory=default_config)
+    player: Actor = Field(default_factory=default_player)
+    enemy: Actor = Field(default_factory=default_enemy)
+    skills: list[Skill] = Field(default_factory=default_skills)
+
+    def build_player(self) -> Actor:
+        """Возвращает нового актёра-игрока с навыками из пресета."""
+        p = self.player.model_copy(deep=True)
+        p.skills = [s.model_copy(deep=True) for s in self.skills]
+        p.init_cooldowns()
+        return p
+
+    def build_enemy(self) -> Actor:
+        """Возвращает нового актёра-врага с навыками из пресета."""
+        e = self.enemy.model_copy(deep=True)
+        e.skills = [s.model_copy(deep=True) for s in self.skills]
+        e.init_cooldowns()
+        return e
+
+
+# ---------------------------------------------------------------------------
+# Сериализация
+# ---------------------------------------------------------------------------
+
+def save_rules(preset: RulesPreset, path: str | Path) -> None:
+    """
+    Сохраняет пресет правил в JSON-файл.
+
+    Args:
+        preset: Объект RulesPreset для сохранения.
+        path: Путь к выходному файлу.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(preset.model_dump_json(indent=2))
+        f.write("\n")
+
+
+def load_rules(path: str | Path) -> RulesPreset:
+    """
+    Загружает пресет правил из JSON-файла.
+
+    Если файл не существует, генерирует дефолтный пресет и сохраняет его.
+
+    Args:
+        path: Путь к файлу пресета.
+
+    Returns:
+        Загруженный или сгенерированный объект RulesPreset.
+    """
+    path = Path(path)
+    if not path.exists():
+        preset = build_default_preset()
+        save_rules(preset, path)
+        return preset
+
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    return RulesPreset.model_validate(data)
+
+
+def build_default_preset() -> RulesPreset:
+    """
+    Создаёт дефолтный пресет правил из моделей по умолчанию.
+
+    Returns:
+        Объект RulesPreset с заводскими настройками ARES.
+    """
+    skills = default_skills()
+
+    player = default_player()
+    player.skills = skills
+    player.init_cooldowns()
+
+    enemy = default_enemy()
+    enemy.skills = skills
+    enemy.init_cooldowns()
+
+    return RulesPreset(
+        name="default",
+        combat_config=default_config(),
+        player=player,
+        enemy=enemy,
+        skills=skills,
+    )
+
+
+def ensure_default_rules() -> RulesPreset:
+    """
+    Гарантирует наличие файла default_rules.json.
+
+    Если файл уже существует - загружает его.
+    Если нет - создаёт дефолтный пресет и сохраняет.
+
+    Returns:
+        Активный пресет правил.
+    """
+    return load_rules(DEFAULT_RULES_PATH)
