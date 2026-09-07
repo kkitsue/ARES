@@ -315,7 +315,13 @@ def generate_balance_report(
     # Шаг 3: Детекция эксплойт-ротации [EXPLOIT_ROTATION]
     # ------------------------------------------------------------------
     exploit_rotation_names: set[str] = set()
-    if len(skill_usages) >= 2:
+    if len(skill_usages) >= 3:
+        top_3_sum = sum(usage for name, usage in skill_usages[:3])
+        if top_3_sum >= 0.65 and avg_ttk <= 4.5 and avg_win_rate >= 75.0:
+            for name, usage in skill_usages[:3]:
+                if usage >= 0.15:
+                    exploit_rotation_names.add(name)
+    elif len(skill_usages) >= 2:
         top_2_sum = skill_usages[0][1] + skill_usages[1][1]
         if top_2_sum >= 0.70 and avg_ttk <= 5.0:
             for name, usage in skill_usages[:2]:
@@ -409,37 +415,48 @@ def generate_balance_report(
 
     # --- Рекомендации [BUFF] для недоиспользуемых навыков ---
     # ВАЖНО: баффы допустимы только после устранения доминирующей ротации.
-    for skill_name in underused:
-        skill = next(s for s in skills if s.name == skill_name)
-        usage = combined_usage.get(skill_name, 0.0)
-        cost_delta = -max(1, int(skill.cost * 0.20)) if skill.cost > 0 else 0
-        damage_delta = max(1, int(skill.damage * 0.10))
-
-        # Бафф замораживается пока активны доминанты
-        if dominant:
-            prefix = (
-                "[BUFF | ЗАМОРОЖЕНО: применять только после нерфа доминирующей ротации]"
-            )
-        else:
-            prefix = "[BUFF]"
-
-        reason = (
-            f"{prefix} Навык «{skill_name}» не используется "
-            f"(Pick Rate: {usage:.1%}). "
-            f"Рекомендован бафф: урон +{damage_delta} ед."
-        )
-        if cost_delta < 0:
-            reason += f", стоимость {cost_delta} MP."
-
+    if avg_win_rate >= 75.0:
         buff_recs.append(
             BalanceRecommendation(
-                skill_name=skill_name,
-                reason=reason,
-                damage_delta=damage_delta,
+                skill_name="Система",
+                reason="[BLOCKED: High Macro WinRate] Общий винрейт >= 75%. Генерация баффов заблокирована до устранения текущих доминантных стратегий.",
+                damage_delta=0,
                 cooldown_delta=0,
-                cost_delta=cost_delta,
+                cost_delta=0,
             )
         )
+    else:
+        for skill_name in underused:
+            skill = next(s for s in skills if s.name == skill_name)
+            usage = combined_usage.get(skill_name, 0.0)
+            cost_delta = -max(1, int(skill.cost * 0.20)) if skill.cost > 0 else 0
+            damage_delta = max(1, int(skill.damage * 0.10))
+
+            # Бафф замораживается пока активны доминанты
+            if dominant:
+                prefix = (
+                    "[BUFF | ЗАМОРОЖЕНО: применять только после нерфа доминирующей ротации]"
+                )
+            else:
+                prefix = "[BUFF]"
+
+            reason = (
+                f"{prefix} Навык «{skill_name}» не используется "
+                f"(Pick Rate: {usage:.1%}). "
+                f"Рекомендован бафф: урон +{damage_delta} ед."
+            )
+            if cost_delta < 0:
+                reason += f", стоимость {cost_delta} MP."
+
+            buff_recs.append(
+                BalanceRecommendation(
+                    skill_name=skill_name,
+                    reason=reason,
+                    damage_delta=damage_delta,
+                    cooldown_delta=0,
+                    cost_delta=cost_delta,
+                )
+            )
 
     # Нерфы первыми, баффы — вторыми
     recommendations = nerf_recs + buff_recs
