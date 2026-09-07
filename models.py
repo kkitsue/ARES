@@ -202,7 +202,13 @@ class BalanceReport(BaseModel):
         default_factory=list, description="Недоиспользуемые навыки"
     )
     recommendations: list[BalanceRecommendation] = Field(
-        default_factory=list, description="Рекомендации по ребалансу"
+        default_factory=list, description="Список рекомендаций СППР"
+    )
+    synergy_cycles: list[tuple[list[str], int]] = Field(
+        default_factory=list, description="Замкнутые циклы синергий (цепочка, мин_вес)"
+    )
+    key_synergy_nodes: list[tuple[str, float]] = Field(
+        default_factory=list, description="Топ узлов по Betweenness Centrality (имя, значение)"
     )
 
 

@@ -14,6 +14,7 @@ import os
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Callable
+import networkx as nx
 
 import numpy as np
 from sb3_contrib import MaskablePPO
@@ -148,12 +149,17 @@ def evaluate_agent(
         wins = 0
         total_turns: list[int] = []
         skill_counts: dict[int, int] = defaultdict(int)
+        transition_counts: dict[tuple[str, str], int] = defaultdict(int)
         total_actions = 0
         total_stun_turns_in_wins = 0
         total_turns_in_wins = 0
 
         # В зеркальном матче передаём саму модель
         enemy_model = model if opponent_name == "mirror" else None
+
+        # Имена навыков для логирования
+        actual_skills = player.skills if player else default_player().skills
+        skill_names = [s.name for s in actual_skills] + ["Пропуск хода"]
 
         for _ in range(n_episodes):
             env = CombatEnv(
@@ -169,6 +175,7 @@ def evaluate_agent(
             done = False
             turns = 0
             enemy_stunned_turns = 0
+            episode_actions = []
 
             while not done:
                 # Агент выбирает действие с учётом маски
@@ -181,9 +188,14 @@ def evaluate_agent(
                 if info.get("enemy_stunned_this_turn", False):
                     enemy_stunned_turns += 1
 
+                # Логируем действие
+                action_idx = int(action)
+                if action_idx < len(skill_names):
+                    episode_actions.append(skill_names[action_idx])
+
                 # Подсчёт использования навыков
-                if int(action) < env.num_skills:
-                    skill_counts[int(action)] += 1
+                if action_idx < env.num_skills:
+                    skill_counts[action_idx] += 1
                     total_actions += 1
 
             # Определяем результат
@@ -191,6 +203,11 @@ def evaluate_agent(
                 wins += 1
                 total_stun_turns_in_wins += enemy_stunned_turns
                 total_turns_in_wins += turns
+                
+                # Записываем переходы только для победных матчей
+                for i in range(len(episode_actions) - 1):
+                    transition_counts[(episode_actions[i], episode_actions[i+1])] += 1
+
             total_turns.append(turns)
 
             wrapped_env.close()
@@ -208,6 +225,7 @@ def evaluate_agent(
             "avg_ttk": np.mean(total_turns) if total_turns else 0.0,
             "skill_usage": skill_usage,
             "stun_rate_in_wins": stun_rate_in_wins,
+            "transition_counts": dict(transition_counts),
         }
 
     return results
@@ -474,6 +492,53 @@ def generate_balance_report(
     # Нерфы первыми, баффы — вторыми
     recommendations = nerf_recs + buff_recs
 
+    # ------------------------------------------------------------------
+    # Шаг 6: Графовый анализ синергий (NetworkX)
+    # ------------------------------------------------------------------
+    G = nx.DiGraph()
+    # Агрегируем переходы
+    total_transitions: dict[tuple[str, str], int] = defaultdict(int)
+    for res_dict in [random_res, greedy_res, mirror_res]:
+        t_counts = res_dict.get("transition_counts", {})
+        for (u, v), count in t_counts.items():
+            total_transitions[(u, v)] += count
+
+    # Строим граф, отфильтровывая переходы с весом <= 5
+    for (u, v), count in total_transitions.items():
+        if count > 5:
+            G.add_edge(u, v, weight=count)
+
+    # 1. Поиск замкнутых циклов
+    synergy_cycles = []
+    try:
+        cycles = list(nx.simple_cycles(G))
+        for cycle in cycles:
+            if len(cycle) >= 2:
+                # Находим минимальный вес ребра в цикле
+                cycle_edges = [(cycle[i], cycle[(i+1)%len(cycle)]) for i in range(len(cycle))]
+                min_weight = min(G[u][v]["weight"] for u, v in cycle_edges)
+                
+                # Добавляем первый узел в конец для замкнутости цепочки визуально
+                full_cycle = cycle + [cycle[0]]
+                synergy_cycles.append((full_cycle, min_weight))
+        
+        # Сортируем циклы по весу
+        synergy_cycles.sort(key=lambda x: x[1], reverse=True)
+    except nx.NetworkXNoCycle:
+        pass
+
+    # 2. Вычисление Betweenness Centrality
+    key_synergy_nodes = []
+    if len(G.nodes) > 0:
+        # Для centrality используем расстояние = 1/weight
+        for u, v, d in G.edges(data=True):
+            d["distance"] = 1.0 / d["weight"]
+        
+        bc = nx.betweenness_centrality(G, weight="distance")
+        sorted_bc = sorted(bc.items(), key=lambda x: x[1], reverse=True)
+        # Отбираем Топ-3 ненулевых узлов
+        key_synergy_nodes = [(node, score) for node, score in sorted_bc if score > 0][:3]
+
     return BalanceReport(
         win_rate_vs_random=round(random_res.get("win_rate", 0.0), 2),
         win_rate_vs_greedy=round(greedy_res.get("win_rate", 0.0), 2),
@@ -485,5 +550,7 @@ def generate_balance_report(
         dominant_skills=dominant,
         underused_skills=underused,
         recommendations=recommendations,
+        synergy_cycles=synergy_cycles,
+        key_synergy_nodes=key_synergy_nodes,
     )
 

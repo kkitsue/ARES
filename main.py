@@ -399,6 +399,28 @@ def show_report(report: BalanceReport) -> None:
 
     console.print()
 
+    # --- Графовый анализ синергий ---
+    if getattr(report, "synergy_cycles", None) or getattr(report, "key_synergy_nodes", None):
+        console.print(
+            Panel(
+                "[bold cyan]Анализ синергий и графовые метрики[/bold cyan]",
+                border_style="cyan"
+            )
+        )
+        
+        if report.synergy_cycles:
+            console.print("[bold yellow]Обнаружены циклические ротации (абьюз-лупы):[/bold yellow]")
+            for cycle, min_weight in report.synergy_cycles:
+                chain_str = " -> ".join(f"[{node}]" for node in cycle)
+                console.print(f"  {chain_str} [dim](вес: {min_weight})[/dim]")
+            console.print()
+
+        if report.key_synergy_nodes:
+            console.print("[bold yellow]Топ узлов по Betweenness Centrality (мосты):[/bold yellow]")
+            for i, (node, score) in enumerate(report.key_synergy_nodes):
+                console.print(f"  {i+1}. [bold cyan]{node}[/bold cyan] [red][KEY_SYNERGY_NODE][/red] (score: {score:.3f})")
+        console.print()
+
 
 # =========================================================================
 # 3. Сценарный анализ «Что, если?»
