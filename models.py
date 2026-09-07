@@ -79,6 +79,9 @@ class Skill(BaseModel):
     damage_variance: float = Field(0.15, ge=0.0, le=1.0, description="Разброс урона")
     applied_effect: Optional[StatusEffect] = Field(None, description="Накладываемый статус-эффект")
     target_self: bool = Field(False, description="Накладывать ли эффект на себя")
+    delivery_type: str = Field("attack_roll", description="Тип применения: attack_roll, saving_throw, auto")
+    dc: int = Field(13, description="Сложность спасброска (если type = saving_throw)")
+    half_on_save: bool = Field(True, description="Половинный урон при успешном спасброске")
 
 
 # ---------------------------------------------------------------------------
@@ -97,6 +100,9 @@ class Actor(BaseModel):
         max_mp: Максимальная мана/энергия.
         attack: Модификатор атаки (добавляется к базовому урону навыка).
         defense: Показатель защиты (вычитается из входящего урона).
+        ac: Класс доспеха (Armor Class).
+        save_bonus: Бонус к спасброскам.
+        attack_bonus: Бонус мастерства к атаке.
         skills: Список доступных навыков.
         cooldowns: Текущие таймеры кулдаунов для каждого навыка.
         active_effects: Текущие статус-эффекты на бойце.
@@ -109,6 +115,9 @@ class Actor(BaseModel):
     max_mp: int = Field(0, ge=0, description="Максимальная мана")
     attack: int = Field(0, ge=0, description="Модификатор атаки")
     defense: int = Field(0, ge=0, description="Показатель защиты")
+    ac: int = Field(10, ge=0, description="Класс доспеха (Armor Class)")
+    save_bonus: int = Field(2, description="Бонус к спасброскам")
+    attack_bonus: int = Field(3, description="Бонус мастерства к атаке")
     skills: list[Skill] = Field(default_factory=list, description="Навыки")
     cooldowns: list[int] = Field(
         default_factory=list, description="Таймеры кулдаунов навыков"

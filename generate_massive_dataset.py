@@ -83,6 +83,7 @@ def phys(
         damage_variance=variance,
         applied_effect=effect,
         target_self=target_self,
+        delivery_type="auto" if target_self else "attack_roll",
     )
 
 
@@ -107,6 +108,9 @@ def mag(
         damage_variance=variance,
         applied_effect=effect,
         target_self=target_self,
+        delivery_type="auto" if target_self else "saving_throw",
+        dc=14,
+        half_on_save=True,
     )
 
 

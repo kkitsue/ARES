@@ -133,14 +133,17 @@ class CombatSimulator:
         actor: Actor,
         target: Actor,
         action_idx: int,
+        verbose: bool = False,
     ) -> int:
         """
-        Применяет действие актёра к цели.
+        Применяет действие актёра к цели с учетом d20 механик (D&D 5e).
         """
         num_skills = len(actor.skills)
 
         # Пропуск хода — ничего не происходит
         if action_idx >= num_skills:
+            if verbose:
+                print(f"[D20] {actor.name} пропускает ход.")
             return 0
 
         skill = actor.skills[action_idx]
@@ -148,14 +151,14 @@ class CombatSimulator:
         # Списываем ману
         actor.mp = max(0, actor.mp - skill.cost)
 
-        # Учитываем баффы и дебаффы
+        # Учитываем баффы и дебаффы (только урон и защита)
         atk_buff = sum(e.value for e in actor.active_effects if e.effect_type == "Усиление атаки")
         def_debuff = sum(e.value for e in target.active_effects if e.effect_type == "Срез брони")
         
         effective_attack = actor.attack + atk_buff
         effective_defense = max(0, target.defense - def_debuff)
 
-        # Рассчитываем базовый урон
+        # Базовый расчет сырого урона (до d20 проверок)
         raw_damage = skill.damage + effective_attack - effective_defense
         
         if self.config.is_stochastic and skill.damage > 0:
@@ -163,14 +166,72 @@ class CombatSimulator:
             variance_max = 1.0 + skill.damage_variance
             variance = self.rng.uniform(variance_min, variance_max)
             raw_damage = raw_damage * variance
-            
-            if self.rng.rand() < skill.crit_chance:
-                raw_damage = raw_damage * 1.5
 
         final_damage = max(1, math.ceil(raw_damage)) if skill.damage > 0 else 0
 
+        # --- d20 механики ---
+        hit_success = True
+        apply_effects = True
+        is_crit = False
+
+        if not self.config.is_stochastic:
+            # Детерминированный режим - автопопадание
+            pass
+        else:
+            delivery = getattr(skill, "delivery_type", "auto")
+            if delivery == "attack_roll":
+                d20 = self.rng.randint(1, 21)
+                total_attack = d20 + getattr(actor, "attack_bonus", 3)
+                target_ac = getattr(target, "ac", 10)
+                
+                if d20 == 20:
+                    is_crit = True
+                    final_damage *= 2
+                    if verbose:
+                        print(f"[D20] {actor.name} кастует '{skill.name}' -> Натуральная 20! КРИТИЧЕСКОЕ ПОПАДАНИЕ! Урон удвоен.")
+                elif d20 == 1:
+                    hit_success = False
+                    apply_effects = False
+                    final_damage = 0
+                    if verbose:
+                        print(f"[D20] {actor.name} кастует '{skill.name}' -> Натуральная 1! КРИТИЧЕСКИЙ ПРОМАХ!")
+                else:
+                    if total_attack >= target_ac:
+                        if verbose:
+                            print(f"[D20] {actor.name} кастует '{skill.name}': {d20} + {getattr(actor, 'attack_bonus', 3)} = {total_attack} vs AC {target_ac} -> ПОПАДАНИЕ")
+                    else:
+                        hit_success = False
+                        apply_effects = False
+                        final_damage = 0
+                        if verbose:
+                            print(f"[D20] {actor.name} кастует '{skill.name}': {d20} + {getattr(actor, 'attack_bonus', 3)} = {total_attack} vs AC {target_ac} -> ПРОМАХ")
+
+            elif delivery == "saving_throw":
+                d20 = self.rng.randint(1, 21)
+                total_save = d20 + getattr(target, "save_bonus", 2)
+                dc = getattr(skill, "dc", 13)
+                
+                if total_save >= dc:
+                    apply_effects = False
+                    half = getattr(skill, "half_on_save", True)
+                    if half:
+                        final_damage = max(1, final_damage // 2) if final_damage > 0 else 0
+                        if verbose:
+                            print(f"[D20] {actor.name} кастует '{skill.name}'. Цель кидает спасбросок: {d20} + {getattr(target, 'save_bonus', 2)} = {total_save} vs DC {dc} -> УСПЕХ (Урон уменьшен вдвое, без эффектов)")
+                    else:
+                        final_damage = 0
+                        if verbose:
+                            print(f"[D20] {actor.name} кастует '{skill.name}'. Цель кидает спасбросок: {d20} + {getattr(target, 'save_bonus', 2)} = {total_save} vs DC {dc} -> УСПЕХ (Уклонение, без эффектов)")
+                else:
+                    if verbose:
+                        print(f"[D20] {actor.name} кастует '{skill.name}'. Цель кидает спасбросок: {d20} + {getattr(target, 'save_bonus', 2)} = {total_save} vs DC {dc} -> ПРОВАЛ (Полный урон и эффекты)")
+            
+            elif delivery == "auto":
+                if verbose:
+                    print(f"[D20] {actor.name} кастует '{skill.name}' (Авто-применение)")
+
         # Поглощение щитом
-        if final_damage > 0:
+        if hit_success and final_damage > 0:
             if target.shield > 0:
                 if target.shield >= final_damage:
                     target.shield -= final_damage
@@ -182,7 +243,7 @@ class CombatSimulator:
             target.hp = max(0, target.hp - final_damage)
 
         # Наложение эффекта
-        if skill.applied_effect is not None:
+        if hit_success and apply_effects and skill.applied_effect is not None:
             effect_target = actor if skill.target_self else target
             # Ищем существующий эффект с таким же именем
             existing = next((e for e in effect_target.active_effects if e.name == skill.applied_effect.name), None)
@@ -191,6 +252,7 @@ class CombatSimulator:
                 existing.duration = max(existing.duration, skill.applied_effect.duration)
             else:
                 # Добавляем новый эффект
+                import copy
                 effect_copy = copy.deepcopy(skill.applied_effect)
                 effect_target.active_effects.append(effect_copy)
                 
