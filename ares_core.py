@@ -317,7 +317,8 @@ def generate_balance_report(
     exploit_rotation_names: set[str] = set()
     if len(skill_usages) >= 3:
         top_3_sum = sum(usage for name, usage in skill_usages[:3])
-        if top_3_sum >= 0.65 and avg_ttk <= 4.5 and avg_win_rate >= 75.0:
+        random_wr = random_res.get("win_rate", 0.0)
+        if top_3_sum >= 0.60 and avg_ttk <= 4.5 and (random_wr >= 80.0 or avg_win_rate >= 60.0):
             for name, usage in skill_usages[:3]:
                 if usage >= 0.15:
                     exploit_rotation_names.add(name)
@@ -415,11 +416,23 @@ def generate_balance_report(
 
     # --- Рекомендации [BUFF] для недоиспользуемых навыков ---
     # ВАЖНО: баффы допустимы только после устранения доминирующей ротации.
+    top_3_sum = sum(usage for name, usage in skill_usages[:3]) if len(skill_usages) >= 3 else 0.0
+
     if avg_win_rate >= 75.0:
         buff_recs.append(
             BalanceRecommendation(
                 skill_name="Система",
                 reason="[BLOCKED: High Macro WinRate] Общий винрейт >= 75%. Генерация баффов заблокирована до устранения текущих доминантных стратегий.",
+                damage_delta=0,
+                cooldown_delta=0,
+                cost_delta=0,
+            )
+        )
+    elif top_3_sum >= 0.60:
+        buff_recs.append(
+            BalanceRecommendation(
+                skill_name="Система",
+                reason="[BLOCKED: Dominant Rotation Active] Баффы заморожены: обнаружена монополия ротации (Топ-3 занимают >60% действий).",
                 damage_delta=0,
                 cooldown_delta=0,
                 cost_delta=0,
