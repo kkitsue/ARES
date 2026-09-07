@@ -376,61 +376,131 @@ def generate_balance_report(
                 underused.append(skill.name)
 
     # ------------------------------------------------------------------
+    # Шаг 6: Графовый анализ синергий (NetworkX)
+    # ------------------------------------------------------------------
+    G = nx.DiGraph()
+    # Агрегируем переходы
+    total_transitions: dict[tuple[str, str], int] = defaultdict(int)
+    for res_dict in [random_res, greedy_res, mirror_res]:
+        t_counts = res_dict.get("transition_counts", {})
+        for (u, v), count in t_counts.items():
+            total_transitions[(u, v)] += count
+
+    # Строим граф, отфильтровывая переходы с весом <= 5
+    for (u, v), count in total_transitions.items():
+        if count > 5:
+            G.add_edge(u, v, weight=count)
+
+    # 1. Поиск замкнутых циклов
+    synergy_cycles = []
+    try:
+        cycles = list(nx.simple_cycles(G))
+        for cycle in cycles:
+            if len(cycle) >= 2:
+                # Находим минимальный вес ребра в цикле
+                cycle_edges = [(cycle[i], cycle[(i+1)%len(cycle)]) for i in range(len(cycle))]
+                min_weight = min(G[u][v]["weight"] for u, v in cycle_edges)
+                
+                # Добавляем первый узел в конец для замкнутости цепочки визуально
+                full_cycle = cycle + [cycle[0]]
+                synergy_cycles.append((full_cycle, min_weight))
+        
+        # Сортируем циклы по весу
+        synergy_cycles.sort(key=lambda x: x[1], reverse=True)
+    except nx.NetworkXNoCycle:
+        pass
+
+    # 2. Вычисление Betweenness Centrality
+    key_synergy_nodes = []
+    bc = {}
+    if len(G.nodes) > 0:
+        # Для centrality используем расстояние = 1/weight
+        for u, v, d in G.edges(data=True):
+            d["distance"] = 1.0 / d["weight"]
+        
+        bc = nx.betweenness_centrality(G, weight="distance")
+        sorted_bc = sorted(bc.items(), key=lambda x: x[1], reverse=True)
+        # Отбираем Топ-3 ненулевых узлов
+        key_synergy_nodes = [(node, score) for node, score in sorted_bc if score > 0][:3]
+
+
+    # ------------------------------------------------------------------
     # Шаг 5: Генерация рекомендаций
     # ------------------------------------------------------------------
     nerf_recs: list[BalanceRecommendation] = []
     buff_recs: list[BalanceRecommendation] = []
 
-    for skill_name in dominant:
-        skill = next(s for s in skills if s.name == skill_name)
+    # Собираем данные по графовым эксплойтам
+    degenerate_loops = {}
+    for cycle, min_weight in synergy_cycles:
+        if min_weight >= 40:
+            for skill_name in cycle:
+                if skill_name not in degenerate_loops or min_weight > degenerate_loops[skill_name]:
+                    degenerate_loops[skill_name] = min_weight
+
+    high_centrality_nodes = {node: score for node, score in (bc.items() if len(G.nodes) > 0 else []) if score >= 0.40}
+
+    # Объединяем все навыки, требующие нерфа
+    skills_to_nerf = set(dominant) | set(degenerate_loops.keys()) | set(high_centrality_nodes.keys())
+
+    for skill_name in skills_to_nerf:
+        skill = next((s for s in skills if s.name == skill_name), None)
+        if not skill:
+            continue
+
         usage = combined_usage.get(skill_name, 0.0)
-        is_exploit = skill_name in exploit_rotation_names
-        is_perma_stun = skill_name in perma_stun_skills
+        
+        # Аккумулируем дельты и причины
+        damage_delta = 0
+        cooldown_delta = 0
+        cost_delta = 0
+        effect_duration_delta = 0
+        reasons = []
 
-        damage_delta = -max(2, int(skill.damage * 0.15))
+        if skill_name in dominant:
+            is_exploit = skill_name in exploit_rotation_names
+            is_perma_stun = skill_name in perma_stun_skills
+            
+            damage_delta = min(damage_delta, -max(2, int(skill.damage * 0.15)))
 
-        if is_perma_stun:
-            tag = "[PERMA_STUN_EXPLOIT]"
-            reason = f"Агент удерживает врага в стане {avg_stun_rate*100:.1f}% времени"
-            cooldown_delta = 1
-            cost_delta = 0
-            effect_duration_delta = -1
-        elif is_exploit:
-            tag = "[EXPLOIT_ROTATION]"
-            reason = (
-                f"{tag} Навык «{skill_name}» входит в доминирующую ротацию. "
-                f"Pick Rate: {usage:.1%}, Avg WR: {avg_win_rate:.1f}%, "
-                f"Avg TTK: {avg_ttk:.1f} ходов."
-            )
-            cooldown_delta = 1
-            cost_delta = 3
-            effect_duration_delta = 0
-        else:
-            tag = "[DOMINANT]"
-            reason = (
-                f"{tag} Навык «{skill_name}» доминирует в мете. "
-                f"Pick Rate: {usage:.1%}, Avg WR: {avg_win_rate:.1f}%."
-            )
-            cooldown_delta = 1
-            cost_delta = 0
-            effect_duration_delta = 0
+            if is_perma_stun:
+                reasons.append(f"[PERMA_STUN_EXPLOIT] Агент удерживает врага в стане {avg_stun_rate*100:.1f}% времени.")
+                cooldown_delta = max(cooldown_delta, 1)
+                effect_duration_delta = min(effect_duration_delta, -1)
+            elif is_exploit:
+                reasons.append(f"[EXPLOIT_ROTATION] Навык входит в доминирующую ротацию. Pick Rate: {usage:.1%}, Avg WR: {avg_win_rate:.1f}%, Avg TTK: {avg_ttk:.1f} ходов.")
+                cooldown_delta = max(cooldown_delta, 1)
+                cost_delta = max(cost_delta, 3)
+            else:
+                reasons.append(f"[DOMINANT] Навык доминирует в мете. Pick Rate: {usage:.1%}, Avg WR: {avg_win_rate:.1f}%.")
+                cooldown_delta = max(cooldown_delta, 1)
 
-        # Добавляем плашку критического дисбаланса, если мета разрушена
+        if skill_name in degenerate_loops:
+            weight = degenerate_loops[skill_name]
+            reasons.append(f"[DEGENERATE_LOOP_EXPLOIT] Навык входит в критический замкнутый цикл (вес: {weight}). Рекомендовано увеличение КД и стоимости для предотвращения спам-лупа.")
+            cooldown_delta = max(cooldown_delta, 1)
+            cost_delta = max(cost_delta, 3)
+
+        if skill_name in high_centrality_nodes:
+            score = high_centrality_nodes[skill_name]
+            reasons.append(f"[HIGH_CENTRALITY_CHOKEPOINT] Навык является доминирующим тактическим мостом (Betweenness: {score:.3f}). Рекомендован нерф кулдауна для диверсификации ротаций.")
+            damage_delta = min(damage_delta, -max(2, int(skill.damage * 0.15)))
+            cooldown_delta = max(cooldown_delta, 1)
+
+        reason_str = " ".join(reasons)
         if crit_imbalance:
-            reason = f"[CRIT_IMBALANCE] {reason}"
+            reason_str = f"[CRIT_IMBALANCE] {reason_str}"
 
         nerf_recs.append(
             BalanceRecommendation(
                 skill_name=skill_name,
-                reason=reason,
+                reason=reason_str,
                 damage_delta=damage_delta,
                 cooldown_delta=cooldown_delta,
                 cost_delta=cost_delta,
                 effect_duration_delta=effect_duration_delta,
             )
         )
-
-
 
     # --- Рекомендации [BUFF] для недоиспользуемых навыков ---
     # ВАЖНО: баффы допустимы только после устранения доминирующей ротации.
@@ -491,53 +561,6 @@ def generate_balance_report(
 
     # Нерфы первыми, баффы — вторыми
     recommendations = nerf_recs + buff_recs
-
-    # ------------------------------------------------------------------
-    # Шаг 6: Графовый анализ синергий (NetworkX)
-    # ------------------------------------------------------------------
-    G = nx.DiGraph()
-    # Агрегируем переходы
-    total_transitions: dict[tuple[str, str], int] = defaultdict(int)
-    for res_dict in [random_res, greedy_res, mirror_res]:
-        t_counts = res_dict.get("transition_counts", {})
-        for (u, v), count in t_counts.items():
-            total_transitions[(u, v)] += count
-
-    # Строим граф, отфильтровывая переходы с весом <= 5
-    for (u, v), count in total_transitions.items():
-        if count > 5:
-            G.add_edge(u, v, weight=count)
-
-    # 1. Поиск замкнутых циклов
-    synergy_cycles = []
-    try:
-        cycles = list(nx.simple_cycles(G))
-        for cycle in cycles:
-            if len(cycle) >= 2:
-                # Находим минимальный вес ребра в цикле
-                cycle_edges = [(cycle[i], cycle[(i+1)%len(cycle)]) for i in range(len(cycle))]
-                min_weight = min(G[u][v]["weight"] for u, v in cycle_edges)
-                
-                # Добавляем первый узел в конец для замкнутости цепочки визуально
-                full_cycle = cycle + [cycle[0]]
-                synergy_cycles.append((full_cycle, min_weight))
-        
-        # Сортируем циклы по весу
-        synergy_cycles.sort(key=lambda x: x[1], reverse=True)
-    except nx.NetworkXNoCycle:
-        pass
-
-    # 2. Вычисление Betweenness Centrality
-    key_synergy_nodes = []
-    if len(G.nodes) > 0:
-        # Для centrality используем расстояние = 1/weight
-        for u, v, d in G.edges(data=True):
-            d["distance"] = 1.0 / d["weight"]
-        
-        bc = nx.betweenness_centrality(G, weight="distance")
-        sorted_bc = sorted(bc.items(), key=lambda x: x[1], reverse=True)
-        # Отбираем Топ-3 ненулевых узлов
-        key_synergy_nodes = [(node, score) for node, score in sorted_bc if score > 0][:3]
 
     return BalanceReport(
         win_rate_vs_random=round(random_res.get("win_rate", 0.0), 2),
