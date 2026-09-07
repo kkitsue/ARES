@@ -1,0 +1,2165 @@
+{
+  "name": "massive_benchmark",
+  "combat_config": {
+    "max_turns": 30,
+    "mp_regen": 10,
+    "is_stochastic": true
+  },
+  "player": {
+    "name": "Игрок",
+    "hp": 300,
+    "max_hp": 300,
+    "mp": 150,
+    "max_mp": 150,
+    "attack": 12,
+    "defense": 6,
+    "skills": [
+      {
+        "name": "Быстрый выпад",
+        "cost": 0,
+        "damage": 20,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Рубящий удар",
+        "cost": 5,
+        "damage": 28,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Двойной удар",
+        "cost": 10,
+        "damage": 36,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Сокрушающий удар",
+        "cost": 15,
+        "damage": 45,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.12,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Раскол брони",
+        "cost": 10,
+        "damage": 22,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Раскол",
+          "effect_type": "Срез брони",
+          "value": 6,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Оглушающий удар",
+        "cost": 15,
+        "damage": 20,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Контузия",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Свирепый натиск",
+        "cost": 20,
+        "damage": 40,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Вихрь клинков",
+        "cost": 20,
+        "damage": 35,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Казнь",
+        "cost": 25,
+        "damage": 60,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.25,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Геройский удар",
+        "cost": 30,
+        "damage": 75,
+        "cooldown": 5,
+        "skill_type": "Физ.",
+        "crit_chance": 0.3,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Искра",
+        "cost": 5,
+        "damage": 18,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Огненный заряд",
+        "cost": 10,
+        "damage": 28,
+        "cooldown": 1,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Огненный шар",
+        "cost": 20,
+        "damage": 38,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-I",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Пылающая стрела",
+        "cost": 15,
+        "damage": 30,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-II",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 7,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Огненная буря",
+        "cost": 35,
+        "damage": 50,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Пожар",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 10,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Пиробомба",
+        "cost": 25,
+        "damage": 45,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Жертвенный огонь",
+        "cost": 40,
+        "damage": 65,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-III",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 12,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Метеор",
+        "cost": 55,
+        "damage": 90,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Ледяная игла",
+        "cost": 5,
+        "damage": 16,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Ледяная стрела",
+        "cost": 15,
+        "damage": 28,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Заморозка",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяная цепь",
+        "cost": 20,
+        "damage": 25,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Оцепенение",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяные оковы",
+        "cost": 25,
+        "damage": 30,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Ледяной захват",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяной щит",
+        "cost": 25,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Ледяной барьер",
+          "effect_type": "Щит",
+          "value": 35,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Ледяная броня",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Крио-броня",
+          "effect_type": "Щит",
+          "value": 50,
+          "duration": 3
+        },
+        "target_self": true
+      },
+      {
+        "name": "Ледяное копьё",
+        "cost": 30,
+        "damage": 50,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Буран",
+        "cost": 45,
+        "damage": 70,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Обморожение",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 8,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ядовитый укол",
+        "cost": 5,
+        "damage": 12,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-I",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ядовитый клинок",
+        "cost": 10,
+        "damage": 18,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-II",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 7,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Рассечение",
+        "cost": 15,
+        "damage": 30,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Кровотечение",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 6,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Смертельный яд",
+        "cost": 20,
+        "damage": 22,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-III",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 10,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ночная охота",
+        "cost": 15,
+        "damage": 38,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.25,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Теневой рывок",
+        "cost": 20,
+        "damage": 45,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Боевой клич",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Берсерк",
+          "effect_type": "Усиление атаки",
+          "value": 8,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Смертельный удар",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.3,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Магическая искра",
+        "cost": 5,
+        "damage": 16,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Луч света",
+        "cost": 10,
+        "damage": 24,
+        "cooldown": 1,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Астральный барьер",
+        "cost": 25,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Астральный щит",
+          "effect_type": "Щит",
+          "value": 40,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Каменная стойка",
+        "cost": 15,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Земляной щит",
+          "effect_type": "Щит",
+          "value": 25,
+          "duration": 3
+        },
+        "target_self": true
+      },
+      {
+        "name": "Благословение",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Благодать",
+          "effect_type": "Усиление атаки",
+          "value": 6,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Священный щит",
+        "cost": 35,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Сакральная броня",
+          "effect_type": "Щит",
+          "value": 60,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Возмездие",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Свет Справедливости",
+        "cost": 40,
+        "damage": 70,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Тёмный импульс",
+        "cost": 20,
+        "damage": 40,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Уязвимость",
+          "effect_type": "Срез брони",
+          "value": 4,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Хаотический взрыв",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Поглощение душ",
+        "cost": 25,
+        "damage": 35,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Тёмный яд",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 12,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Разрыв реальности",
+        "cost": 40,
+        "damage": 70,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.35,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Проклятие распада",
+        "cost": 30,
+        "damage": 30,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Проклятие",
+          "effect_type": "Срез брони",
+          "value": 8,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Темпоральный удар",
+        "cost": 45,
+        "damage": 65,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Темпоральный захват",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Уничтожение",
+        "cost": 60,
+        "damage": 95,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Апокалипсис",
+        "cost": 80,
+        "damage": 120,
+        "cooldown": 6,
+        "skill_type": "Маг.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      }
+    ],
+    "cooldowns": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_effects": [],
+    "shield": 0
+  },
+  "enemy": {
+    "name": "Враг",
+    "hp": 300,
+    "max_hp": 300,
+    "mp": 150,
+    "max_mp": 150,
+    "attack": 12,
+    "defense": 6,
+    "skills": [
+      {
+        "name": "Быстрый выпад",
+        "cost": 0,
+        "damage": 20,
+        "cooldown": 0,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Рубящий удар",
+        "cost": 5,
+        "damage": 28,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Двойной удар",
+        "cost": 10,
+        "damage": 36,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Сокрушающий удар",
+        "cost": 15,
+        "damage": 45,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.12,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Раскол брони",
+        "cost": 10,
+        "damage": 22,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Раскол",
+          "effect_type": "Срез брони",
+          "value": 6,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Оглушающий удар",
+        "cost": 15,
+        "damage": 20,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Контузия",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Свирепый натиск",
+        "cost": 20,
+        "damage": 40,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Вихрь клинков",
+        "cost": 20,
+        "damage": 35,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Казнь",
+        "cost": 25,
+        "damage": 60,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.25,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Геройский удар",
+        "cost": 30,
+        "damage": 75,
+        "cooldown": 5,
+        "skill_type": "Физ.",
+        "crit_chance": 0.3,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Искра",
+        "cost": 5,
+        "damage": 18,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Огненный заряд",
+        "cost": 10,
+        "damage": 28,
+        "cooldown": 1,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Огненный шар",
+        "cost": 20,
+        "damage": 38,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-I",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Пылающая стрела",
+        "cost": 15,
+        "damage": 30,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-II",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 7,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Огненная буря",
+        "cost": 35,
+        "damage": 50,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Пожар",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 10,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Пиробомба",
+        "cost": 25,
+        "damage": 45,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Жертвенный огонь",
+        "cost": 40,
+        "damage": 65,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Горение-III",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 12,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Метеор",
+        "cost": 55,
+        "damage": 90,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Ледяная игла",
+        "cost": 5,
+        "damage": 16,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Ледяная стрела",
+        "cost": 15,
+        "damage": 28,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Заморозка",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяная цепь",
+        "cost": 20,
+        "damage": 25,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Оцепенение",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяные оковы",
+        "cost": 25,
+        "damage": 30,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Ледяной захват",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ледяной щит",
+        "cost": 25,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Ледяной барьер",
+          "effect_type": "Щит",
+          "value": 35,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Ледяная броня",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Крио-броня",
+          "effect_type": "Щит",
+          "value": 50,
+          "duration": 3
+        },
+        "target_self": true
+      },
+      {
+        "name": "Ледяное копьё",
+        "cost": 30,
+        "damage": 50,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Буран",
+        "cost": 45,
+        "damage": 70,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Обморожение",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 8,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ядовитый укол",
+        "cost": 5,
+        "damage": 12,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-I",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 5,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ядовитый клинок",
+        "cost": 10,
+        "damage": 18,
+        "cooldown": 1,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-II",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 7,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Рассечение",
+        "cost": 15,
+        "damage": 30,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Кровотечение",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 6,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Смертельный яд",
+        "cost": 20,
+        "damage": 22,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Яд-III",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 10,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Ночная охота",
+        "cost": 15,
+        "damage": 38,
+        "cooldown": 2,
+        "skill_type": "Физ.",
+        "crit_chance": 0.25,
+        "damage_variance": 0.2,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Теневой рывок",
+        "cost": 20,
+        "damage": 45,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.15,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Боевой клич",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Физ.",
+        "crit_chance": 0.1,
+        "damage_variance": 0.15,
+        "applied_effect": {
+          "name": "Берсерк",
+          "effect_type": "Усиление атаки",
+          "value": 8,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Смертельный удар",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 4,
+        "skill_type": "Физ.",
+        "crit_chance": 0.3,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Магическая искра",
+        "cost": 5,
+        "damage": 16,
+        "cooldown": 0,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Луч света",
+        "cost": 10,
+        "damage": 24,
+        "cooldown": 1,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Астральный барьер",
+        "cost": 25,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Астральный щит",
+          "effect_type": "Щит",
+          "value": 40,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Каменная стойка",
+        "cost": 15,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Земляной щит",
+          "effect_type": "Щит",
+          "value": 25,
+          "duration": 3
+        },
+        "target_self": true
+      },
+      {
+        "name": "Благословение",
+        "cost": 20,
+        "damage": 0,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Благодать",
+          "effect_type": "Усиление атаки",
+          "value": 6,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Священный щит",
+        "cost": 35,
+        "damage": 0,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Сакральная броня",
+          "effect_type": "Щит",
+          "value": 60,
+          "duration": 2
+        },
+        "target_self": true
+      },
+      {
+        "name": "Возмездие",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Свет Справедливости",
+        "cost": 40,
+        "damage": 70,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Тёмный импульс",
+        "cost": 20,
+        "damage": 40,
+        "cooldown": 2,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Уязвимость",
+          "effect_type": "Срез брони",
+          "value": 4,
+          "duration": 2
+        },
+        "target_self": false
+      },
+      {
+        "name": "Хаотический взрыв",
+        "cost": 30,
+        "damage": 55,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Поглощение душ",
+        "cost": 25,
+        "damage": 35,
+        "cooldown": 3,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Тёмный яд",
+          "effect_type": "ДоТ (периодический урон)",
+          "value": 12,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Разрыв реальности",
+        "cost": 40,
+        "damage": 70,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.35,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Проклятие распада",
+        "cost": 30,
+        "damage": 30,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Проклятие",
+          "effect_type": "Срез брони",
+          "value": 8,
+          "duration": 3
+        },
+        "target_self": false
+      },
+      {
+        "name": "Темпоральный удар",
+        "cost": 45,
+        "damage": 65,
+        "cooldown": 4,
+        "skill_type": "Маг.",
+        "crit_chance": 0.05,
+        "damage_variance": 0.1,
+        "applied_effect": {
+          "name": "Темпоральный захват",
+          "effect_type": "Оглушение",
+          "value": 0,
+          "duration": 1
+        },
+        "target_self": false
+      },
+      {
+        "name": "Уничтожение",
+        "cost": 60,
+        "damage": 95,
+        "cooldown": 5,
+        "skill_type": "Маг.",
+        "crit_chance": 0.15,
+        "damage_variance": 0.25,
+        "applied_effect": null,
+        "target_self": false
+      },
+      {
+        "name": "Апокалипсис",
+        "cost": 80,
+        "damage": 120,
+        "cooldown": 6,
+        "skill_type": "Маг.",
+        "crit_chance": 0.2,
+        "damage_variance": 0.3,
+        "applied_effect": null,
+        "target_self": false
+      }
+    ],
+    "cooldowns": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_effects": [],
+    "shield": 0
+  },
+  "skills": [
+    {
+      "name": "Быстрый выпад",
+      "cost": 0,
+      "damage": 20,
+      "cooldown": 0,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Рубящий удар",
+      "cost": 5,
+      "damage": 28,
+      "cooldown": 1,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Двойной удар",
+      "cost": 10,
+      "damage": 36,
+      "cooldown": 2,
+      "skill_type": "Физ.",
+      "crit_chance": 0.15,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Сокрушающий удар",
+      "cost": 15,
+      "damage": 45,
+      "cooldown": 2,
+      "skill_type": "Физ.",
+      "crit_chance": 0.12,
+      "damage_variance": 0.2,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Раскол брони",
+      "cost": 10,
+      "damage": 22,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Раскол",
+        "effect_type": "Срез брони",
+        "value": 6,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Оглушающий удар",
+      "cost": 15,
+      "damage": 20,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Контузия",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false
+    },
+    {
+      "name": "Свирепый натиск",
+      "cost": 20,
+      "damage": 40,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.2,
+      "damage_variance": 0.25,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Вихрь клинков",
+      "cost": 20,
+      "damage": 35,
+      "cooldown": 4,
+      "skill_type": "Физ.",
+      "crit_chance": 0.15,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Казнь",
+      "cost": 25,
+      "damage": 60,
+      "cooldown": 4,
+      "skill_type": "Физ.",
+      "crit_chance": 0.25,
+      "damage_variance": 0.3,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Геройский удар",
+      "cost": 30,
+      "damage": 75,
+      "cooldown": 5,
+      "skill_type": "Физ.",
+      "crit_chance": 0.3,
+      "damage_variance": 0.2,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Искра",
+      "cost": 5,
+      "damage": 18,
+      "cooldown": 0,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Огненный заряд",
+      "cost": 10,
+      "damage": 28,
+      "cooldown": 1,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Огненный шар",
+      "cost": 20,
+      "damage": 38,
+      "cooldown": 0,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Горение-I",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 5,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Пылающая стрела",
+      "cost": 15,
+      "damage": 30,
+      "cooldown": 2,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Горение-II",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 7,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Огненная буря",
+      "cost": 35,
+      "damage": 50,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Пожар",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 10,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Пиробомба",
+      "cost": 25,
+      "damage": 45,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.2,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Жертвенный огонь",
+      "cost": 40,
+      "damage": 65,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Горение-III",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 12,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Метеор",
+      "cost": 55,
+      "damage": 90,
+      "cooldown": 5,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.25,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Ледяная игла",
+      "cost": 5,
+      "damage": 16,
+      "cooldown": 0,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Ледяная стрела",
+      "cost": 15,
+      "damage": 28,
+      "cooldown": 2,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Заморозка",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ледяная цепь",
+      "cost": 20,
+      "damage": 25,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Оцепенение",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ледяные оковы",
+      "cost": 25,
+      "damage": 30,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Ледяной захват",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ледяной щит",
+      "cost": 25,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Ледяной барьер",
+        "effect_type": "Щит",
+        "value": 35,
+        "duration": 2
+      },
+      "target_self": true
+    },
+    {
+      "name": "Ледяная броня",
+      "cost": 20,
+      "damage": 0,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Крио-броня",
+        "effect_type": "Щит",
+        "value": 50,
+        "duration": 3
+      },
+      "target_self": true
+    },
+    {
+      "name": "Ледяное копьё",
+      "cost": 30,
+      "damage": 50,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Буран",
+      "cost": 45,
+      "damage": 70,
+      "cooldown": 5,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Обморожение",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 8,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ядовитый укол",
+      "cost": 5,
+      "damage": 12,
+      "cooldown": 1,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Яд-I",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 5,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ядовитый клинок",
+      "cost": 10,
+      "damage": 18,
+      "cooldown": 1,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Яд-II",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 7,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Рассечение",
+      "cost": 15,
+      "damage": 30,
+      "cooldown": 2,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Кровотечение",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 6,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Смертельный яд",
+      "cost": 20,
+      "damage": 22,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Яд-III",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 10,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Ночная охота",
+      "cost": 15,
+      "damage": 38,
+      "cooldown": 2,
+      "skill_type": "Физ.",
+      "crit_chance": 0.25,
+      "damage_variance": 0.2,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Теневой рывок",
+      "cost": 20,
+      "damage": 45,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.2,
+      "damage_variance": 0.15,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Боевой клич",
+      "cost": 20,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Физ.",
+      "crit_chance": 0.1,
+      "damage_variance": 0.15,
+      "applied_effect": {
+        "name": "Берсерк",
+        "effect_type": "Усиление атаки",
+        "value": 8,
+        "duration": 2
+      },
+      "target_self": true
+    },
+    {
+      "name": "Смертельный удар",
+      "cost": 30,
+      "damage": 55,
+      "cooldown": 4,
+      "skill_type": "Физ.",
+      "crit_chance": 0.3,
+      "damage_variance": 0.25,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Магическая искра",
+      "cost": 5,
+      "damage": 16,
+      "cooldown": 0,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Луч света",
+      "cost": 10,
+      "damage": 24,
+      "cooldown": 1,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Астральный барьер",
+      "cost": 25,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Астральный щит",
+        "effect_type": "Щит",
+        "value": 40,
+        "duration": 2
+      },
+      "target_self": true
+    },
+    {
+      "name": "Каменная стойка",
+      "cost": 15,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Земляной щит",
+        "effect_type": "Щит",
+        "value": 25,
+        "duration": 3
+      },
+      "target_self": true
+    },
+    {
+      "name": "Благословение",
+      "cost": 20,
+      "damage": 0,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Благодать",
+        "effect_type": "Усиление атаки",
+        "value": 6,
+        "duration": 2
+      },
+      "target_self": true
+    },
+    {
+      "name": "Священный щит",
+      "cost": 35,
+      "damage": 0,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Сакральная броня",
+        "effect_type": "Щит",
+        "value": 60,
+        "duration": 2
+      },
+      "target_self": true
+    },
+    {
+      "name": "Возмездие",
+      "cost": 30,
+      "damage": 55,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Свет Справедливости",
+      "cost": 40,
+      "damage": 70,
+      "cooldown": 5,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Тёмный импульс",
+      "cost": 20,
+      "damage": 40,
+      "cooldown": 2,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Уязвимость",
+        "effect_type": "Срез брони",
+        "value": 4,
+        "duration": 2
+      },
+      "target_self": false
+    },
+    {
+      "name": "Хаотический взрыв",
+      "cost": 30,
+      "damage": 55,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.3,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Поглощение душ",
+      "cost": 25,
+      "damage": 35,
+      "cooldown": 3,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Тёмный яд",
+        "effect_type": "ДоТ (периодический урон)",
+        "value": 12,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Разрыв реальности",
+      "cost": 40,
+      "damage": 70,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.35,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Проклятие распада",
+      "cost": 30,
+      "damage": 30,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Проклятие",
+        "effect_type": "Срез брони",
+        "value": 8,
+        "duration": 3
+      },
+      "target_self": false
+    },
+    {
+      "name": "Темпоральный удар",
+      "cost": 45,
+      "damage": 65,
+      "cooldown": 4,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": {
+        "name": "Темпоральный захват",
+        "effect_type": "Оглушение",
+        "value": 0,
+        "duration": 1
+      },
+      "target_self": false
+    },
+    {
+      "name": "Уничтожение",
+      "cost": 60,
+      "damage": 95,
+      "cooldown": 5,
+      "skill_type": "Маг.",
+      "crit_chance": 0.15,
+      "damage_variance": 0.25,
+      "applied_effect": null,
+      "target_self": false
+    },
+    {
+      "name": "Апокалипсис",
+      "cost": 80,
+      "damage": 120,
+      "cooldown": 6,
+      "skill_type": "Маг.",
+      "crit_chance": 0.2,
+      "damage_variance": 0.3,
+      "applied_effect": null,
+      "target_self": false
+    }
+  ]
+}
