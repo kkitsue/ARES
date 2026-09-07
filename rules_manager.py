@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 from models import (
     Actor,
+    BalanceReport,
     CombatConfig,
     Skill,
     default_config,
@@ -150,3 +151,65 @@ def ensure_default_rules() -> RulesPreset:
         Активный пресет правил.
     """
     return load_rules(DEFAULT_RULES_PATH)
+
+# ---------------------------------------------------------------------------
+# Авто-ребаланс
+# ---------------------------------------------------------------------------
+
+def apply_balance_recommendations(
+    preset: RulesPreset,
+    report: BalanceReport,
+    apply_frozen_buffs: bool = False
+) -> tuple[RulesPreset, list[str]]:
+    """
+    Применяет рекомендации из отчёта СППР к текущему пресету.
+
+    Args:
+        preset: Текущий пресет правил.
+        report: Отчёт с рекомендациями.
+        apply_frozen_buffs: Если False, применяет только нерфы (пропускает
+                            баффы со статусом заморозки).
+
+    Returns:
+        tuple(обновлённый клон RulesPreset, список строк-диффов изменений).
+    """
+    new_preset = preset.model_copy(deep=True)
+    diff_log = []
+
+    for rec in report.recommendations:
+        # Проверяем, нужно ли применять эту рекомендацию
+        if not apply_frozen_buffs and "ЗАМОРОЖЕНО" in rec.reason:
+            continue
+
+        # Ищем навык в пресете
+        skill_idx = next((i for i, s in enumerate(new_preset.skills) if s.name == rec.skill_name), None)
+        if skill_idx is None:
+            continue
+
+        skill = new_preset.skills[skill_idx]
+
+        # Сохраняем старые значения для диффа
+        old_dmg = skill.damage
+        old_cd = skill.cooldown
+        old_cost = skill.cost
+
+        # Применяем дельты
+        skill.damage = max(0, skill.damage + rec.damage_delta)
+        skill.cooldown = max(0, skill.cooldown + rec.cooldown_delta)
+        skill.cost = max(0, skill.cost + rec.cost_delta)
+
+        # Формируем строку диффа
+        diff_str = f"[bold cyan]{skill.name}[/bold cyan]: "
+        changes = []
+        if old_dmg != skill.damage:
+            changes.append(f"Урон ({old_dmg} -> {skill.damage})")
+        if old_cd != skill.cooldown:
+            changes.append(f"Кулдаун ({old_cd} -> {skill.cooldown})")
+        if old_cost != skill.cost:
+            changes.append(f"Стоимость ({old_cost} -> {skill.cost})")
+
+        if changes:
+            diff_str += ", ".join(changes)
+            diff_log.append(diff_str)
+
+    return new_preset, diff_log

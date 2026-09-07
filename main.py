@@ -45,6 +45,7 @@ from models import (
 from rules_manager import (
     DEFAULT_RULES_PATH,
     RulesPreset,
+    apply_balance_recommendations,
     ensure_default_rules,
     load_rules,
     save_rules,
@@ -100,12 +101,13 @@ def show_menu() -> str:
         Строка с номером выбранного пункта.
     """
     menu_text = (
-        "[bold green]1[/] │ Запустить стресс-тестирование баланса\n"
-        "[bold green]2[/] │ Посмотреть отчёт СППР\n"
-        "[bold green]3[/] │ Сценарный анализ «Что, если?»\n"
-        "[bold green]4[/] │ Экспорт отчёта в файл\n"
-        "[bold green]5[/] │ Загрузить конфигурацию правил из файла (JSON)\n"
-        "[bold red]0[/]   │ Выход"
+        "[bold green]1[/] | Запустить стресс-тестирование баланса\n"
+        "[bold green]2[/] | Посмотреть отчёт СППР\n"
+        "[bold green]3[/] | Сценарный анализ «Что, если?»\n"
+        "[bold green]4[/] | Экспорт отчёта в файл\n"
+        "[bold green]5[/] | Загрузить конфигурацию правил из файла (JSON)\n"
+        "[bold green]6[/] | Применить рекомендации СППР (Авто-ребаланс)\n"
+        "[bold red]0[/]   | Выход"
     )
     console.print(
         Panel(
@@ -118,7 +120,7 @@ def show_menu() -> str:
     )
     choice = Prompt.ask(
         "[bold yellow]Выберите действие[/bold yellow]",
-        choices=["0", "1", "2", "3", "4", "5"],
+        choices=["0", "1", "2", "3", "4", "5", "6"],
         default="0",
     )
     return choice
@@ -782,6 +784,94 @@ def load_rules_interactive() -> bool:
 
 
 # =========================================================================
+# 6. Автоматическое применение рекомендаций СППР (Авто-ребаланс)
+# =========================================================================
+
+def auto_rebalance_interactive() -> None:
+    """
+    Интерактивный интерфейс авто-ребаланса.
+    Считывает рекомендации из текущего отчета, предлагает режимы (нерфы/все),
+    применяет патч к пресету и запускает ретест.
+    """
+    global _current_report, _current_preset
+
+    if _current_report is None or not _current_report.recommendations:
+        console.print(
+            Panel(
+                "[yellow]Нет доступных рекомендаций для авто-ребаланса.[/yellow]\n"
+                "Сначала запустите стресс-тестирование (пункт 1).",
+                title="[INFO] Авто-ребаланс",
+                border_style="yellow",
+            )
+        )
+        return
+
+    console.print(
+        Panel(
+            "[bold]Автоматическое применение рекомендаций СППР[/bold]\n"
+            "Выберите режим авто-патча:",
+            title="[6] Авто-ребаланс",
+            border_style="magenta",
+        )
+    )
+
+    console.print("  [bold green]1[/] | Безопасный режим (только нерфы доминантных ротаций)")
+    console.print("  [bold yellow]2[/] | Полный ребаланс (включая баффы неиспользуемых)")
+    console.print("  [bold red]0[/] | Отмена\n")
+
+    mode = Prompt.ask(
+        "[bold cyan]Выберите режим[/bold cyan]",
+        choices=["0", "1", "2"],
+        default="1",
+    )
+
+    if mode == "0":
+        console.print("[dim]Отмена авто-ребаланса.[/dim]")
+        return
+
+    apply_frozen_buffs = (mode == "2")
+    
+    active_preset = _current_preset or ensure_default_rules()
+
+    new_preset, diff_log = apply_balance_recommendations(
+        preset=active_preset,
+        report=_current_report,
+        apply_frozen_buffs=apply_frozen_buffs
+    )
+
+    if not diff_log:
+        console.print("[yellow]Нет изменений для применения в выбранном режиме.[/yellow]")
+        return
+
+    # Выводим таблицу изменений
+    diff_table = Table(
+        title="Изменения в авто-патче",
+        box=box.SIMPLE_HEAVY,
+        border_style="magenta",
+    )
+    diff_table.add_column("Изменённые навыки", style="bold")
+    for diff in diff_log:
+        diff_table.add_row(diff)
+    
+    console.print(diff_table)
+
+    save_choice = Prompt.ask(
+        "\n[bold yellow]Сохранить авто-патч в текущий JSON-конфиг и запустить повторное тестирование?[/bold yellow] [dim][Y/n][/dim]",
+        default="y",
+    )
+
+    if save_choice.lower() == "y":
+        save_rules(new_preset, DEFAULT_RULES_PATH)
+        _current_preset = new_preset
+        console.print(f"  [green][OK][/green] Патч успешно сохранён в [cyan]{DEFAULT_RULES_PATH.name}[/cyan]")
+        console.print("\n[bold]Запуск повторного стресс-тестирования...[/bold]\n")
+        _current_report = run_stress_test()
+        show_report(_current_report)
+    else:
+        console.print("[dim]Отмена сохранения.[/dim]")
+
+
+# =========================================================================
 # Главный цикл приложения
 # =========================================================================
 
@@ -884,6 +974,12 @@ def main() -> None:
             except Exception as e:
                 console.print(f"[red]Ошибка при загрузке правил: {e}[/red]")
 
+        elif choice == "6":
+            # Авто-ребаланс
+            try:
+                auto_rebalance_interactive()
+            except Exception as e:
+                console.print(f"[red]Ошибка при авто-ребалансе: {e}[/red]")
 
 if __name__ == "__main__":
     main()
