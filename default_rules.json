@@ -13,6 +13,9 @@
     "max_mp": 150,
     "attack": 12,
     "defense": 6,
+    "ac": 10,
+    "save_bonus": 2,
+    "attack_bonus": 3,
     "skills": [
       {
         "name": "Быстрый выпад",
@@ -23,7 +26,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Рубящий удар",
@@ -34,7 +40,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Двойной удар",
@@ -45,7 +54,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Сокрушающий удар",
@@ -56,7 +68,10 @@
         "crit_chance": 0.12,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Раскол брони",
@@ -72,7 +87,10 @@
           "value": 6,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Оглушающий удар",
@@ -88,7 +106,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Свирепый натиск",
@@ -99,7 +120,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Вихрь клинков",
@@ -110,7 +134,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Казнь",
@@ -121,7 +148,10 @@
         "crit_chance": 0.25,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Геройский удар",
@@ -132,7 +162,10 @@
         "crit_chance": 0.3,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Искра",
@@ -143,7 +176,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненный заряд",
@@ -154,7 +190,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненный шар",
@@ -170,7 +209,10 @@
           "value": 5,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Пылающая стрела",
@@ -186,7 +228,10 @@
           "value": 7,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненная буря",
@@ -202,7 +247,10 @@
           "value": 10,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Пиробомба",
@@ -213,7 +261,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Жертвенный огонь",
@@ -229,7 +280,10 @@
           "value": 12,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Метеор",
@@ -240,7 +294,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная игла",
@@ -251,7 +308,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная стрела",
@@ -267,7 +327,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная цепь",
@@ -283,7 +346,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяные оковы",
@@ -299,7 +365,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяной щит",
@@ -315,7 +384,10 @@
           "value": 35,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная броня",
@@ -331,7 +403,10 @@
           "value": 50,
           "duration": 3
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяное копьё",
@@ -342,7 +417,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Буран",
@@ -358,7 +436,10 @@
           "value": 8,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ядовитый укол",
@@ -374,7 +455,10 @@
           "value": 5,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ядовитый клинок",
@@ -390,7 +474,10 @@
           "value": 7,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Рассечение",
@@ -406,7 +493,10 @@
           "value": 6,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Смертельный яд",
@@ -422,7 +512,10 @@
           "value": 10,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ночная охота",
@@ -433,7 +526,10 @@
         "crit_chance": 0.25,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Теневой рывок",
@@ -444,7 +540,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Боевой клич",
@@ -460,7 +559,10 @@
           "value": 8,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Смертельный удар",
@@ -471,7 +573,10 @@
         "crit_chance": 0.3,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Магическая искра",
@@ -482,7 +587,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Луч света",
@@ -493,7 +601,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Астральный барьер",
@@ -509,7 +620,10 @@
           "value": 40,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Каменная стойка",
@@ -525,7 +639,10 @@
           "value": 25,
           "duration": 3
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Благословение",
@@ -541,7 +658,10 @@
           "value": 6,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Священный щит",
@@ -557,7 +677,10 @@
           "value": 60,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Возмездие",
@@ -568,7 +691,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Свет Справедливости",
@@ -579,7 +705,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Тёмный импульс",
@@ -595,7 +724,10 @@
           "value": 4,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Хаотический взрыв",
@@ -606,7 +738,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Поглощение душ",
@@ -622,7 +757,10 @@
           "value": 12,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Разрыв реальности",
@@ -633,7 +771,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.35,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Проклятие распада",
@@ -649,7 +790,10 @@
           "value": 8,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Темпоральный удар",
@@ -665,7 +809,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Уничтожение",
@@ -676,7 +823,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Апокалипсис",
@@ -687,7 +837,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       }
     ],
     "cooldowns": [
@@ -753,6 +906,9 @@
     "max_mp": 150,
     "attack": 12,
     "defense": 6,
+    "ac": 10,
+    "save_bonus": 2,
+    "attack_bonus": 3,
     "skills": [
       {
         "name": "Быстрый выпад",
@@ -763,7 +919,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Рубящий удар",
@@ -774,7 +933,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Двойной удар",
@@ -785,7 +947,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Сокрушающий удар",
@@ -796,7 +961,10 @@
         "crit_chance": 0.12,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Раскол брони",
@@ -812,7 +980,10 @@
           "value": 6,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Оглушающий удар",
@@ -828,7 +999,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Свирепый натиск",
@@ -839,7 +1013,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Вихрь клинков",
@@ -850,7 +1027,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Казнь",
@@ -861,7 +1041,10 @@
         "crit_chance": 0.25,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Геройский удар",
@@ -872,7 +1055,10 @@
         "crit_chance": 0.3,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Искра",
@@ -883,7 +1069,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненный заряд",
@@ -894,7 +1083,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненный шар",
@@ -910,7 +1102,10 @@
           "value": 5,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Пылающая стрела",
@@ -926,7 +1121,10 @@
           "value": 7,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Огненная буря",
@@ -942,7 +1140,10 @@
           "value": 10,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Пиробомба",
@@ -953,7 +1154,10 @@
         "crit_chance": 0.1,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Жертвенный огонь",
@@ -969,7 +1173,10 @@
           "value": 12,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Метеор",
@@ -980,7 +1187,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная игла",
@@ -991,7 +1201,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная стрела",
@@ -1007,7 +1220,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная цепь",
@@ -1023,7 +1239,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяные оковы",
@@ -1039,7 +1258,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяной щит",
@@ -1055,7 +1277,10 @@
           "value": 35,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяная броня",
@@ -1071,7 +1296,10 @@
           "value": 50,
           "duration": 3
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ледяное копьё",
@@ -1082,7 +1310,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Буран",
@@ -1098,7 +1329,10 @@
           "value": 8,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ядовитый укол",
@@ -1114,7 +1348,10 @@
           "value": 5,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ядовитый клинок",
@@ -1130,7 +1367,10 @@
           "value": 7,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Рассечение",
@@ -1146,7 +1386,10 @@
           "value": 6,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Смертельный яд",
@@ -1162,7 +1405,10 @@
           "value": 10,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Ночная охота",
@@ -1173,7 +1419,10 @@
         "crit_chance": 0.25,
         "damage_variance": 0.2,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Теневой рывок",
@@ -1184,7 +1433,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.15,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Боевой клич",
@@ -1200,7 +1452,10 @@
           "value": 8,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Смертельный удар",
@@ -1211,7 +1466,10 @@
         "crit_chance": 0.3,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Магическая искра",
@@ -1222,7 +1480,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Луч света",
@@ -1233,7 +1494,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Астральный барьер",
@@ -1249,7 +1513,10 @@
           "value": 40,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Каменная стойка",
@@ -1265,7 +1532,10 @@
           "value": 25,
           "duration": 3
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Благословение",
@@ -1281,7 +1551,10 @@
           "value": 6,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Священный щит",
@@ -1297,7 +1570,10 @@
           "value": 60,
           "duration": 2
         },
-        "target_self": true
+        "target_self": true,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Возмездие",
@@ -1308,7 +1584,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Свет Справедливости",
@@ -1319,7 +1598,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.1,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Тёмный импульс",
@@ -1335,7 +1617,10 @@
           "value": 4,
           "duration": 2
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Хаотический взрыв",
@@ -1346,7 +1631,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Поглощение душ",
@@ -1362,7 +1650,10 @@
           "value": 12,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Разрыв реальности",
@@ -1373,7 +1664,10 @@
         "crit_chance": 0.05,
         "damage_variance": 0.35,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Проклятие распада",
@@ -1389,7 +1683,10 @@
           "value": 8,
           "duration": 3
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Темпоральный удар",
@@ -1405,7 +1702,10 @@
           "value": 0,
           "duration": 1
         },
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Уничтожение",
@@ -1416,7 +1716,10 @@
         "crit_chance": 0.15,
         "damage_variance": 0.25,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       },
       {
         "name": "Апокалипсис",
@@ -1427,7 +1730,10 @@
         "crit_chance": 0.2,
         "damage_variance": 0.3,
         "applied_effect": null,
-        "target_self": false
+        "target_self": false,
+        "delivery_type": "attack_roll",
+        "dc": 13,
+        "half_on_save": true
       }
     ],
     "cooldowns": [
@@ -1495,7 +1801,10 @@
       "crit_chance": 0.1,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Рубящий удар",
@@ -1506,7 +1815,10 @@
       "crit_chance": 0.1,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Двойной удар",
@@ -1517,7 +1829,10 @@
       "crit_chance": 0.15,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Сокрушающий удар",
@@ -1528,7 +1843,10 @@
       "crit_chance": 0.12,
       "damage_variance": 0.2,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Раскол брони",
@@ -1544,13 +1862,16 @@
         "value": 6,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Оглушающий удар",
-      "cost": 10,
-      "damage": 19,
-      "cooldown": 4,
+      "cost": 13,
+      "damage": 17,
+      "cooldown": 6,
       "skill_type": "Физ.",
       "crit_chance": 0.1,
       "damage_variance": 0.15,
@@ -1560,7 +1881,10 @@
         "value": 0,
         "duration": 1
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Свирепый натиск",
@@ -1571,7 +1895,10 @@
       "crit_chance": 0.2,
       "damage_variance": 0.25,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Вихрь клинков",
@@ -1582,29 +1909,38 @@
       "crit_chance": 0.15,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Казнь",
-      "cost": 16,
-      "damage": 72,
-      "cooldown": 4,
+      "cost": 19,
+      "damage": 62,
+      "cooldown": 5,
       "skill_type": "Физ.",
       "crit_chance": 0.25,
       "damage_variance": 0.3,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Геройский удар",
-      "cost": 27,
-      "damage": 70,
-      "cooldown": 6,
+      "cost": 30,
+      "damage": 51,
+      "cooldown": 8,
       "skill_type": "Физ.",
       "crit_chance": 0.3,
       "damage_variance": 0.2,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Искра",
@@ -1615,7 +1951,10 @@
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Огненный заряд",
@@ -1626,7 +1965,10 @@
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Огненный шар",
@@ -1642,7 +1984,10 @@
         "value": 5,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Пылающая стрела",
@@ -1658,13 +2003,16 @@
         "value": 7,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Огненная буря",
-      "cost": 23,
-      "damage": 60,
-      "cooldown": 3,
+      "cost": 29,
+      "damage": 44,
+      "cooldown": 5,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1674,7 +2022,10 @@
         "value": 10,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Пиробомба",
@@ -1685,13 +2036,16 @@
       "crit_chance": 0.1,
       "damage_variance": 0.2,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Жертвенный огонь",
-      "cost": 35,
-      "damage": 49,
-      "cooldown": 7,
+      "cost": 41,
+      "damage": 42,
+      "cooldown": 9,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1701,18 +2055,24 @@
         "value": 12,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Метеор",
-      "cost": 42,
-      "damage": 79,
-      "cooldown": 7,
+      "cost": 51,
+      "damage": 68,
+      "cooldown": 10,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.25,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяная игла",
@@ -1723,13 +2083,16 @@
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяная стрела",
-      "cost": 12,
-      "damage": 26,
-      "cooldown": 3,
+      "cost": 21,
+      "damage": 20,
+      "cooldown": 6,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1739,13 +2102,16 @@
         "value": 0,
         "duration": 1
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяная цепь",
-      "cost": 13,
-      "damage": 26,
-      "cooldown": 4,
+      "cost": 25,
+      "damage": 20,
+      "cooldown": 8,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1755,13 +2121,16 @@
         "value": 0,
         "duration": 1
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяные оковы",
-      "cost": 16,
-      "damage": 30,
-      "cooldown": 5,
+      "cost": 22,
+      "damage": 23,
+      "cooldown": 9,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1771,7 +2140,10 @@
         "value": 0,
         "duration": 1
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяной щит",
@@ -1787,7 +2159,10 @@
         "value": 35,
         "duration": 2
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяная броня",
@@ -1803,24 +2178,30 @@
         "value": 50,
         "duration": 3
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ледяное копьё",
-      "cost": 20,
+      "cost": 23,
       "damage": 60,
-      "cooldown": 3,
+      "cooldown": 4,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Буран",
-      "cost": 36,
-      "damage": 77,
-      "cooldown": 5,
+      "cost": 45,
+      "damage": 57,
+      "cooldown": 8,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -1830,7 +2211,10 @@
         "value": 8,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ядовитый укол",
@@ -1846,7 +2230,10 @@
         "value": 5,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ядовитый клинок",
@@ -1862,7 +2249,10 @@
         "value": 7,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Рассечение",
@@ -1878,13 +2268,16 @@
         "value": 6,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Смертельный яд",
-      "cost": 13,
+      "cost": 16,
       "damage": 26,
-      "cooldown": 3,
+      "cooldown": 4,
       "skill_type": "Физ.",
       "crit_chance": 0.1,
       "damage_variance": 0.15,
@@ -1894,7 +2287,10 @@
         "value": 10,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Ночная охота",
@@ -1905,7 +2301,10 @@
       "crit_chance": 0.25,
       "damage_variance": 0.2,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Теневой рывок",
@@ -1916,7 +2315,10 @@
       "crit_chance": 0.2,
       "damage_variance": 0.15,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Боевой клич",
@@ -1932,18 +2334,24 @@
         "value": 8,
         "duration": 2
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Смертельный удар",
-      "cost": 20,
-      "damage": 66,
-      "cooldown": 4,
+      "cost": 23,
+      "damage": 57,
+      "cooldown": 5,
       "skill_type": "Физ.",
       "crit_chance": 0.3,
       "damage_variance": 0.25,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Магическая искра",
@@ -1954,7 +2362,10 @@
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Луч света",
@@ -1965,7 +2376,10 @@
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Астральный барьер",
@@ -1981,7 +2395,10 @@
         "value": 40,
         "duration": 2
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Каменная стойка",
@@ -1997,7 +2414,10 @@
         "value": 25,
         "duration": 3
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Благословение",
@@ -2013,7 +2433,10 @@
         "value": 6,
         "duration": 2
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Священный щит",
@@ -2029,29 +2452,38 @@
         "value": 60,
         "duration": 2
       },
-      "target_self": true
+      "target_self": true,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Возмездие",
-      "cost": 20,
+      "cost": 23,
       "damage": 66,
-      "cooldown": 4,
-      "skill_type": "Маг.",
-      "crit_chance": 0.05,
-      "damage_variance": 0.1,
-      "applied_effect": null,
-      "target_self": false
-    },
-    {
-      "name": "Свет Справедливости",
-      "cost": 26,
-      "damage": 84,
       "cooldown": 5,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
+    },
+    {
+      "name": "Свет Справедливости",
+      "cost": 32,
+      "damage": 62,
+      "cooldown": 8,
+      "skill_type": "Маг.",
+      "crit_chance": 0.05,
+      "damage_variance": 0.1,
+      "applied_effect": null,
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Тёмный импульс",
@@ -2067,24 +2499,30 @@
         "value": 4,
         "duration": 2
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Хаотический взрыв",
-      "cost": 20,
+      "cost": 23,
       "damage": 66,
-      "cooldown": 3,
+      "cooldown": 4,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.3,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Поглощение душ",
-      "cost": 16,
-      "damage": 41,
-      "cooldown": 3,
+      "cost": 19,
+      "damage": 35,
+      "cooldown": 4,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -2094,18 +2532,24 @@
         "value": 12,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Разрыв реальности",
-      "cost": 29,
-      "damage": 72,
-      "cooldown": 5,
+      "cost": 32,
+      "damage": 62,
+      "cooldown": 6,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.35,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Проклятие распада",
@@ -2121,13 +2565,16 @@
         "value": 8,
         "duration": 3
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Темпоральный удар",
-      "cost": 48,
-      "damage": 34,
-      "cooldown": 9,
+      "cost": 51,
+      "damage": 29,
+      "cooldown": 11,
       "skill_type": "Маг.",
       "crit_chance": 0.05,
       "damage_variance": 0.1,
@@ -2137,29 +2584,38 @@
         "value": 0,
         "duration": 1
       },
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Уничтожение",
-      "cost": 54,
-      "damage": 76,
-      "cooldown": 7,
+      "cost": 57,
+      "damage": 65,
+      "cooldown": 8,
       "skill_type": "Маг.",
       "crit_chance": 0.15,
       "damage_variance": 0.25,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     },
     {
       "name": "Апокалипсис",
-      "cost": 86,
-      "damage": 87,
-      "cooldown": 8,
+      "cost": 89,
+      "damage": 74,
+      "cooldown": 9,
       "skill_type": "Маг.",
       "crit_chance": 0.2,
       "damage_variance": 0.3,
       "applied_effect": null,
-      "target_self": false
+      "target_self": false,
+      "delivery_type": "attack_roll",
+      "dc": 13,
+      "half_on_save": true
     }
   ]
 }

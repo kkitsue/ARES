@@ -43,18 +43,20 @@ class RulesPreset(BaseModel):
     а также список навыков, общих для обоих бойцов.
 
     Attributes:
-        name: Название пресета (для отображения в UI).
-        combat_config: Конфигурация боя.
-        player: Базовые характеристики игрока.
-        enemy: Базовые характеристики врага.
-        skills: Список навыков, доступных обоим бойцам.
+        name: Название пресета (например, "Default RPG Settings").
+        combat_config: Глобальные настройки боя (ходы, реген, стохастика).
+        player: Характеристики и начальные навыки игрока.
+        enemy: Характеристики и начальные навыки противника (по умолчанию).
+        skills: Полный реестр умений, доступных в игре (словарь/список).
+        enemies_pool: Опциональный пул противников для случайного выбора.
     """
 
-    name: str = Field("default", description="Название пресета")
+    name: str = Field("Default Rules", description="Название пресета")
     combat_config: CombatConfig = Field(default_factory=default_config)
     player: Actor = Field(default_factory=default_player)
     enemy: Actor = Field(default_factory=default_enemy)
     skills: list[Skill] = Field(default_factory=default_skills)
+    enemies_pool: list[Actor] = Field(default_factory=list, description="Пул возможных противников")
 
     def build_player(self) -> Actor:
         """Возвращает нового актёра-игрока с навыками из пресета."""

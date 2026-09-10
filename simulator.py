@@ -404,11 +404,21 @@ class CombatSimulator:
                 e_dot_turns = min(e.duration / 10.0, 1.0)
                 break
 
+        # Normalization for AC and Save Bonus (assume max AC ~ 30, max save ~ 20)
+        p_ac = min(getattr(self.player, "ac", 10) / 30.0, 1.0)
+        p_save = min(max(getattr(self.player, "save_bonus", 2) + 10, 0) / 30.0, 1.0) # shifted by 10 to handle negatives
+        e_ac = min(getattr(self.enemy, "ac", 10) / 30.0, 1.0)
+        e_save = min(max(getattr(self.enemy, "save_bonus", 2) + 10, 0) / 30.0, 1.0)
+
         return {
             "player_hp": p_hp,
             "player_mp": p_mp,
             "enemy_hp": e_hp,
             "enemy_mp": e_mp,
+            "player_ac": p_ac,
+            "player_save_bonus": p_save,
+            "enemy_ac": e_ac,
+            "enemy_save_bonus": e_save,
             "player_cooldowns": player_cds,
             "enemy_cooldowns": enemy_cds,
             "player_stunned": p_stunned,
